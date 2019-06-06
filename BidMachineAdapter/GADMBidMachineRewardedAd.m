@@ -22,7 +22,7 @@
 @implementation GADMBidMachineRewardedAd
 
 + (NSString *)adapterVersion {
-    return @"1.0.3.1";
+    return @"1.1.0.0";
 }
 
 + (Class<GADAdNetworkExtras>)networkExtrasClass {

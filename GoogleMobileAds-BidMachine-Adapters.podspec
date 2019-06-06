@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "GoogleMobileAds-BidMachine-Adapters"
-  spec.version      = "1.0.3.1"
+  spec.version      = "1.1.0.0"
   spec.summary      = "BidMachine IOS adapter for GoogleMobileAds mediation"
   spec.description  = <<-DESC
   Supported ad formats: Banner, Interstitial, Rewarded Video.\n
