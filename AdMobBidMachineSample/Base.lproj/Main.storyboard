@@ -78,6 +78,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="showInterstitialButton" destination="DZX-9N-rD5" id="xEj-Pb-non"/>
+                        <outlet property="showRewardedButton" destination="ooF-XQ-3HM" id="Zlp-A9-z0r"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -18,6 +18,8 @@
 @property (nonatomic, strong) GADBannerView *bannerView;
 @property (nonatomic, strong) GADRewardBasedVideoAd *rewarded;
 @property (nonatomic, strong) GADInterstitial *interstitial;
+@property (weak, nonatomic) IBOutlet UIButton *showInterstitialButton;
+@property (weak, nonatomic) IBOutlet UIButton *showRewardedButton;
 
 @end
 
@@ -25,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.showInterstitialButton setEnabled:NO];
+    [self.showRewardedButton setEnabled:NO];
     
     self.bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
     self.rewarded = [[GADRewardBasedVideoAd alloc] init];
@@ -127,6 +132,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad {
     NSLog(@"interstitialDidReceiveAdWithNetworkClassName: %@", ad.adNetworkClassName);
+    [self.showInterstitialButton setEnabled:YES];
 }
 
 - (void)interstitial:(GADInterstitial *)ad
@@ -144,6 +150,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad {
     NSLog(@"interstitialDidDismissScreen");
+    [self.showInterstitialButton setEnabled:NO];
 }
 
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad {
@@ -159,6 +166,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 - (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
     NSLog(@"Reward based video ad is received with network class name: %@.", rewardBasedVideoAd.adNetworkClassName);
+    [self.showRewardedButton setEnabled:YES];
 }
 
 - (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
@@ -175,6 +183,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 
 - (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
     NSLog(@"Reward based video ad is closed.");
+    [self.showRewardedButton setEnabled:NO];
 }
 
 - (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {

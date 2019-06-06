@@ -504,11 +504,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WG4VFF78ZM;
 				INFOPLIST_FILE = AdMobBidMachineSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bidmachine.AdMobBidMachineSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bidmachine.AdMobBidMachineSample2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -522,11 +523,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WG4VFF78ZM;
 				INFOPLIST_FILE = AdMobBidMachineSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bidmachine.AdMobBidMachineSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bidmachine.AdMobBidMachineSample2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
