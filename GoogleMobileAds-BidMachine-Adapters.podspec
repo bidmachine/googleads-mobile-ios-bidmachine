@@ -1,12 +1,12 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "GoogleMobileAds-BidMachine-Adapters"
-  spec.version      = "1.0.3.0"
+  spec.version      = "1.0.3.1"
   spec.summary      = "BidMachine IOS adapter for GoogleMobileAds mediation"
   spec.description  = <<-DESC
   Supported ad formats: Banner, Interstitial, Rewarded Video.\n
                    DESC
-  spec.homepage     = "https://github.com/appodeal/googleads-mobile-ios-bidmachine"
+  spec.homepage     = "https://github.com/bidmachine/BidMachine-Google-Mobile-Ads-iOS-Adapters"
   spec.license      = { :type => 'Apache License, Version 2.0', :text => <<-LICENSE
   Copyright 2019 Appodeal, Inc.
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,11 @@ limitations under the License.
 
   spec.author       = { "Appodeal" => "http://www.appodeal.com" }
   spec.platform     = :ios, '9.0'
-  spec.source       = { :git => "https://github.com/appodeal/googleads-mobile-ios-bidmachine.git", :tag => "v#{spec.version}" }
+  spec.source       = { :git => "https://github.com/bidmachine/BidMachine-Google-Mobile-Ads-iOS-Adapters.git", :branch => "Release-1-0-3-1" }
 
   spec.source_files = 'BidMachineAdapter/**/*.{h,m}'
   spec.static_framework = true
-  spec.dependency 'BidMachine', '1.0.3'
+  spec.dependency 'BidMachine', '1.1.0'
   spec.dependency 'Google-Mobile-Ads-SDK', '7.44.0'
 
 end
