@@ -1,5 +1,5 @@
 PODS:
-  - BidMachine (1.0.3)
+  - BidMachine (1.1.0)
   - Google-Mobile-Ads-SDK (7.44.0):
     - GoogleAppMeasurement (~> 6.0)
   - GoogleAppMeasurement (6.0.0):
@@ -87,7 +87,7 @@ PODS:
   - nanopb/encode (0.3.901)
 
 DEPENDENCIES:
-  - BidMachine (~> 1.0)
+  - BidMachine (~> 1.1)
   - Google-Mobile-Ads-SDK
   - GoogleMobileAdsMediationTestSuite
 
@@ -104,7 +104,7 @@ SPEC REPOS:
     - nanopb
 
 SPEC CHECKSUMS:
-  BidMachine: 4ba60d24144b821046e72c58f77f143fc6a004ca
+  BidMachine: c7f2cb4e9fda7c0813abe59be836d98e2d3b0e44
   Google-Mobile-Ads-SDK: 1e72b4f438d997ab0f2ee62b3a7b0cbcc87c47cb
   GoogleAppMeasurement: 7f028ea162b72c8f326daec74afc95d94f7a47d6
   GoogleMobileAdsMediationTestSuite: 5fa71a97dd0be6e45a98d12ffd78ff0829051cd6
@@ -114,6 +114,6 @@ SPEC CHECKSUMS:
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
 
-PODFILE CHECKSUM: f7c5686d52ab3b90856e3b2855387aef081fcca3
+PODFILE CHECKSUM: 9cfd05ebc153628a900bc259b47a6f60f037788b
 
 COCOAPODS: 1.6.1
