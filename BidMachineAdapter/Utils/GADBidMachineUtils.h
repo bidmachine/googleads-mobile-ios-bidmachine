@@ -11,12 +11,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 
-GADVersionNumber GADVersionNumberFromBidMachineString(NSString *version);
-BDMBannerAdSize BDMBannerAdSizeFromGADAdSize(GADAdSize gadAdSize);
-BDMFullscreenAdType BDMFullscreenAdTypeFromString(NSString *string);
-BDMUserGender *BDMUserGenderFromString(NSString *gender);
-NSString *BidMachineSellerID(id sellerId);
-NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors);
+FOUNDATION_EXPORT NSString *const kGADBidMachineErrorDomain;
 
 @interface GADBidMachineUtils : NSObject
 
@@ -28,5 +23,6 @@ NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors);
 - (NSDictionary *)requestInfoFromConnector:(id<GADMRewardBasedVideoAdNetworkConnector>)connector;
 - (BDMTargeting *)targetingWithRequestInfo:(NSDictionary *)requestInfo
                                   location:(CLLocation *)location;
+- (NSURL *)transformEndpointURL:(id)endpoint;
 
 @end

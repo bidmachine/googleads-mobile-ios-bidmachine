@@ -1,8 +1,30 @@
 PODS:
-  - BidMachine (1.1.1)
-  - Google-Mobile-Ads-SDK (7.45.0):
+  - AdColony (3.3.8.1)
+  - BidMachine (1.3.0-Beta-3):
+    - BidMachine/Core (= 1.3.0-Beta-3)
+  - BidMachine/AdColonyAdapter (1.3.0-Beta-3):
+    - AdColony (~> 3.3)
+    - BidMachine/Core
+  - BidMachine/Core (1.3.0-Beta-3):
+    - Protobuf (~> 3.9)
+    - StackIAB (~> 0.5.0)
+    - StackModules (~> 0.6.3)
+  - BidMachine/FacebookAdapter (1.3.0-Beta-3):
+    - BidMachine/Core
+    - FBAudienceNetwork (~> 5.4)
+  - BidMachine/MyTargetAdapter (1.3.0-Beta-3):
+    - BidMachine/Core
+    - myTargetSDK (~> 5.3)
+  - BidMachine/TapjoyAdapter (1.3.0-Beta-3):
+    - BidMachine/Core
+    - TapjoySDK (~> 12.3)
+  - BidMachine/VungleAdapter (1.3.0-Beta-3):
+    - BidMachine/Core
+    - VungleSDK-iOS (~> 6.3)
+  - FBAudienceNetwork (5.4.0)
+  - Google-Mobile-Ads-SDK (7.48.0):
     - GoogleAppMeasurement (~> 6.0)
-  - GoogleAppMeasurement (6.0.1):
+  - GoogleAppMeasurement (6.1.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
@@ -13,21 +35,21 @@ PODS:
     - MaterialComponents/Cards (~> 76.0)
     - MaterialComponents/Dialogs (~> 76.0)
     - MaterialComponents/Tabs (~> 76.0)
-  - GoogleUtilities/AppDelegateSwizzler (6.2.0):
+  - GoogleUtilities/AppDelegateSwizzler (6.2.4):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.2.0)
-  - GoogleUtilities/Logger (6.2.0):
+  - GoogleUtilities/Environment (6.2.4)
+  - GoogleUtilities/Logger (6.2.4):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.2.0):
+  - GoogleUtilities/MethodSwizzler (6.2.4):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.2.0):
+  - GoogleUtilities/Network (6.2.4):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.2.0)"
-  - GoogleUtilities/Reachability (6.2.0):
+  - "GoogleUtilities/NSData+zlib (6.2.4)"
+  - GoogleUtilities/Reachability (6.2.4):
     - GoogleUtilities/Logger
   - MaterialComponents/AnimationTiming (76.1.2)
   - MaterialComponents/Buttons (76.1.2):
@@ -80,20 +102,69 @@ PODS:
     - MaterialComponents/private/Math
   - MDFInternationalization (2.0.0)
   - MDFTextAccessibility (2.0.0)
+  - myTargetSDK (5.3.3)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Protobuf (3.9.0)
+  - StackIAB (0.5.2):
+    - StackIAB/StackMRAIDKit (= 0.5.2)
+    - StackIAB/StackNASTKit (= 0.5.2)
+    - StackIAB/StackRichMedia (= 0.5.2)
+    - StackIAB/StackVASTAssets (= 0.5.2)
+    - StackIAB/StackVASTKit (= 0.5.2)
+    - StackIAB/StackVideoPlayer (= 0.5.2)
+    - StackIAB/StackXML (= 0.5.2)
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackMRAIDKit (0.5.2):
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackNASTKit (0.5.2):
+    - StackIAB/StackVASTKit
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackRichMedia (0.5.2):
+    - StackIAB/StackVASTAssets
+    - StackIAB/StackVideoPlayer
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackVASTAssets (0.5.2):
+    - StackIAB/StackXML
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackVASTKit (0.5.2):
+    - StackIAB/StackMRAIDKit
+    - StackIAB/StackVASTAssets
+    - StackIAB/StackVideoPlayer
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackVideoPlayer (0.5.2):
+    - StackModules (~> 0.6.3)
+  - StackIAB/StackXML (0.5.2):
+    - StackModules (~> 0.6.3)
+  - StackModules (0.6.6):
+    - StackModules/StackUIKit (= 0.6.6)
+  - StackModules/StackFoundation (0.6.6)
+  - StackModules/StackUIKit (0.6.6):
+    - StackModules/StackFoundation
+  - TapjoySDK (12.3.1)
+  - VungleSDK-iOS (6.3.2)
 
 DEPENDENCIES:
-  - BidMachine (~> 1.1)
+  - BidMachine (= 1.3.0-Beta-3)
+  - BidMachine/AdColonyAdapter (= 1.3.0-Beta-3)
+  - BidMachine/FacebookAdapter (= 1.3.0-Beta-3)
+  - BidMachine/MyTargetAdapter (= 1.3.0-Beta-3)
+  - BidMachine/TapjoyAdapter (= 1.3.0-Beta-3)
+  - BidMachine/VungleAdapter (= 1.3.0-Beta-3)
   - Google-Mobile-Ads-SDK
   - GoogleMobileAdsMediationTestSuite
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/appodeal/CocoaPods.git:
     - BidMachine
+    - FBAudienceNetwork
+    - StackIAB
+    - StackModules
+  https://github.com/cocoapods/specs.git:
+    - AdColony
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleMobileAdsMediationTestSuite
@@ -101,19 +172,31 @@ SPEC REPOS:
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
+    - myTargetSDK
     - nanopb
+    - Protobuf
+    - TapjoySDK
+    - VungleSDK-iOS
 
 SPEC CHECKSUMS:
-  BidMachine: d4742ae6c049edba0df0397c3f6d36a768c21819
-  Google-Mobile-Ads-SDK: f76d0f6b67445d64928f3ba1235ad85483fa8537
-  GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
+  AdColony: 21c9cdcc780854d406e213cb1e5ef9f2b165cca3
+  BidMachine: 4be1380f906d2c1683ba18102e0e78c651c5acb3
+  FBAudienceNetwork: d139bc387b26f018bedef8f5a75e7affae0bc77d
+  Google-Mobile-Ads-SDK: 709fa768c3ba8e8b260d8cb085c607097fd3f79d
+  GoogleAppMeasurement: 47285fa897e5a125df56b9ef8750a1d81e4598a8
   GoogleMobileAdsMediationTestSuite: 5fa71a97dd0be6e45a98d12ffd78ff0829051cd6
-  GoogleUtilities: 996e0db07153674fd1b54b220fda3a3dc3547cba
+  GoogleUtilities: 64b5e3982b1b01bda26712affd5c523ef32563cf
   MaterialComponents: 1aef341d47fbaed37ddb5163a01af94cb6da8506
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  myTargetSDK: e63e4e5be9e8dd714339df9ade73059bf3a3d385
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
+  StackIAB: 1ed16132c93eb86e9b01cf4dae60e82eb952aaf6
+  StackModules: 1aaf237a520de33a13e151fcb467f4ed3cea3f16
+  TapjoySDK: 753e103874719a63dd37c479bd8046db3c274cd6
+  VungleSDK-iOS: 69a7f407b60281d2954ffc5eeeac349fbfed51d6
 
-PODFILE CHECKSUM: 4f0ea873cc0b0930cd45d25109b9b11997a4e946
+PODFILE CHECKSUM: 9627dd154ae40148aea12f705bf38b29655327d1
 
 COCOAPODS: 1.6.1

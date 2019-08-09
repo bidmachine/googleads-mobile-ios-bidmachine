@@ -12,35 +12,32 @@
 @implementation GADBidMachineNetworkExtras
 
 - (NSDictionary *)extras {
-    NSMutableDictionary *dict = [NSMutableDictionary new];
-    if (self) {
-        dict[kBidMachineSellerId] = self.sellerId;
-        dict[kBidMachineTestMode] = @(self.testMode);
-        dict[kBidMachineLoggingEnabled] = @(self.loggingEnabled);
-        dict[kBidMachineSubjectToGDPR] = @(self.isUnderGDPR);
-        dict[kBidMachineHasConsent] = @(self.hasUserConsent);
-        dict[kBidMachineConsentString] = self.consentString;
-        dict[kBidMachineUserId] = self.userId;
-        dict[kBidMachineKeywords] = self.keywords;
-        dict[kBidMachineGender] = self.gender;
-        dict[kBidMachineYearOfBirth] = self.yearOfBirth;
-        dict[kBidMachineBlockedCategories] = [self.blockedCategories componentsJoinedByString:@","];
-        dict[kBidMachineBlockedAdvertisers] = [self.blockedAdvertisers componentsJoinedByString:@","];
-        dict[kBidMachineBlockedApps] = [self.blockedApps componentsJoinedByString:@","];
-        dict[kBidMachineCountry] = self.country;
-        dict[kBidMachineCity] = self.city;
-        dict[kBidMachineZip] = self.zip;
-        dict[kBidMachineStoreURL] = self.storeURL.absoluteString;
-        dict[kBidMachineStoreId] = self.storeId;
-        dict[kBidMachinePaid] = @(self.paid);
-        dict[kBidMachineLatitude] = @(self.userLatitude);
-        dict[kBidMachineLongitude] = @(self.userLongitude);
-        if (self.coppa) {
-            dict[kBidMachineCoppa] = @YES;
-        }
-        dict[kBidMachinePriceFloors] = self.priceFloors;
-    }
-    return dict;
+    NSMutableDictionary *extras = [NSMutableDictionary new];
+    extras[kBidMachineSellerId]             = self.sellerId;
+    extras[kBidMachineTestMode]             = @(self.testMode);
+    extras[kBidMachineLoggingEnabled]       = @(self.loggingEnabled);
+    extras[kBidMachineEndpoint]             = self.baseURL.absoluteString;
+    extras[kBidMachineSubjectToGDPR]        = @(self.isUnderGDPR);
+    extras[kBidMachineHasConsent]           = @(self.hasUserConsent);
+    extras[kBidMachineConsentString]        = self.consentString;
+    extras[kBidMachineUserId]               = self.userId;
+    extras[kBidMachineKeywords]             = self.keywords;
+    extras[kBidMachineGender]               = self.gender;
+    extras[kBidMachineYearOfBirth]          = self.yearOfBirth;
+    extras[kBidMachineBlockedCategories]    = [self.blockedCategories componentsJoinedByString:@","];
+    extras[kBidMachineBlockedAdvertisers]   = [self.blockedAdvertisers componentsJoinedByString:@","];
+    extras[kBidMachineBlockedApps]          = [self.blockedApps componentsJoinedByString:@","];
+    extras[kBidMachineCountry]              = self.country;
+    extras[kBidMachineCity]                 = self.city;
+    extras[kBidMachineZip]                  = self.zip;
+    extras[kBidMachineStoreURL]             = self.storeURL.absoluteString;
+    extras[kBidMachineStoreId]              = self.storeId;
+    extras[kBidMachinePaid]                 = @(self.paid);
+    extras[kBidMachineLatitude]             = @(self.userLatitude);
+    extras[kBidMachineLongitude]            = @(self.userLongitude);
+    extras[kBidMachineCoppa]                = self.coppa ? @YES : nil;
+    extras[kBidMachinePriceFloors]          = self.priceFloors;
+    return extras;
 }
 
 @end

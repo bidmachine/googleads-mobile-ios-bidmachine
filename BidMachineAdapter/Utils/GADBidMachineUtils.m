@@ -9,92 +9,13 @@
 #import "GADBidMachineUtils.h"
 #import "GADMAdapterBidMachineConstants.h"
 #import "GADBidMachineNetworkExtras.h"
+#import "GADBidMachineTransformer.h"
+#import "GADBidMachineHeaderBiddingConfig.h"
+
+#import <BidMachine/BDMSdkConfiguration+HeaderBidding.h>
 
 
-GADVersionNumber GADVersionNumberFromBidMachineString(NSString *version) {
-    GADVersionNumber gadVersion = {0};
-    NSArray<NSString *> *components = [version componentsSeparatedByString:@"."];
-    if (components.count == 3) {
-        gadVersion.majorVersion = components[0].integerValue;
-        gadVersion.minorVersion = components[1].integerValue;
-        gadVersion.patchVersion = components[2].integerValue;
-    }
-    return gadVersion;
-}
-
-
-BDMBannerAdSize BDMBannerAdSizeFromGADAdSize(GADAdSize gadAdSize) {
-    BDMBannerAdSize adSize;
-    CGSize transformedSize = CGSizeFromGADAdSize(gadAdSize);
-    switch ((int)transformedSize.height) {
-        case 50:  adSize = BDMBannerAdSize320x50;   break;
-        case 90:  adSize = BDMBannerAdSize728x90;   break;
-        case 250: adSize = BDMBannerAdSize300x250;  break;
-        default:  adSize = BDMBannerAdSizeUnknown;  break;
-    }
-    return adSize;
-}
-
-
-BDMFullscreenAdType BDMFullscreenAdTypeFromString(NSString *string) {
-    BDMFullscreenAdType type;
-    NSString *lowercasedString = [string lowercaseString];
-    if ([lowercasedString isEqualToString:@"all"]) {
-        type = BDMFullscreenAdTypeAll;
-    } else if ([lowercasedString isEqualToString:@"video"]) {
-        type = BDMFullscreenAdTypeVideo;
-    } else if ([lowercasedString isEqualToString:@"static"]) {
-        type = BDMFullsreenAdTypeBanner;
-    } else {
-        type = BDMFullscreenAdTypeAll;
-    }
-    return type;
-}
-
-
-BDMUserGender *BDMUserGenderFromString(NSString *gender) {
-    BDMUserGender *userGender;
-    if ([gender isEqualToString:@"F"]) {
-        userGender = kBDMUserGenderFemale;
-    } else if ([gender isEqualToString:@"M"]) {
-        userGender = kBDMUserGenderMale;
-    } else if ([gender isEqualToString:@"O"]) {
-        userGender = kBDMUserGenderUnknown;
-    }
-    return userGender;
-}
-
-
-NSString *BidMachineSellerID(id sellerId) {
-    NSString *stringSellerId;
-    if ([sellerId isKindOfClass:NSString.class] && [sellerId integerValue]) {
-        stringSellerId = sellerId;
-    } else if ([sellerId isKindOfClass:NSNumber.class]) {
-        stringSellerId = [sellerId stringValue];
-    }
-    return stringSellerId;
-}
-
-
-NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors) {
-    NSMutableArray<BDMPriceFloor *> *priceFloorsArr = priceFloors.count > 0 ? [NSMutableArray new] : nil;
-    [priceFloors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:NSDictionary.class]) {
-            BDMPriceFloor *priceFloor = [BDMPriceFloor new];
-            NSDictionary *object = (NSDictionary *)obj;
-            [priceFloor setID: object.allKeys[0]];
-            [priceFloor setValue: object.allValues[0]];
-            [priceFloorsArr addObject:priceFloor];
-        } else if ([obj isKindOfClass:NSNumber.class]) {
-            BDMPriceFloor *priceFloor = [BDMPriceFloor new];
-            NSNumber *object = (NSNumber *)obj;
-            [priceFloor setID:NSUUID.UUID.UUIDString.lowercaseString];
-            [priceFloor setValue:[NSDecimalNumber decimalNumberWithDecimal:object.decimalValue]];
-            [priceFloorsArr addObject:priceFloor];
-        }
-    }];
-    return priceFloorsArr;
-}
+NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
 
 
 @interface GADBidMachineUtils ()
@@ -117,43 +38,49 @@ NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors) {
 
 - (void)initializeBidMachineWithRequestInfo:(NSDictionary *)requestInfo
                                  completion:(void(^)(NSError *))completion {
-    NSString *sellerID = BidMachineSellerID(requestInfo[kBidMachineSellerId]);
-    if (sellerID &&
-        ![self.currentSellerId isEqualToString:sellerID]) {
+    [BDMSdk.sharedSdk setEnableLogging:[requestInfo[kBidMachineLoggingEnabled] boolValue]];
+    NSString *sellerID = [GADBidMachineTransformer sellerIdFromValue:requestInfo[kBidMachineSellerId]];
+    
+    if (sellerID && ![self.currentSellerId isEqualToString:sellerID]) {
         self.currentSellerId = sellerID;
-        BOOL testModeEnabled = [requestInfo[kBidMachineTestMode] boolValue];
-        BOOL loggingEnabled = [requestInfo[kBidMachineLoggingEnabled] boolValue];
         BDMSdkConfiguration *config = [BDMSdkConfiguration new];
-        [config setTestMode:testModeEnabled];
-        [[BDMSdk sharedSdk] setEnableLogging:loggingEnabled];
-        [[BDMSdk sharedSdk] startSessionWithSellerID:self.currentSellerId
-                                       configuration:config
-                                          completion:^{
-                                              NSLog(@"BidMachine SDK was successfully initialized!");
-                                              completion ? completion(nil) : nil;
-                                          }];
+        
+        config.testMode = [requestInfo[kBidMachineTestMode] boolValue];
+        config.baseURL = [self transformEndpointURL:requestInfo[@"endpoint"]];
+        config.networkConfigurations = [self headerBiddingConfigurationFromRequestInfo:requestInfo];
+        
+        [BDMSdk.sharedSdk startSessionWithSellerID:self.currentSellerId
+                                     configuration:config
+                                        completion:^{
+                                            completion ? completion(nil) : nil;
+                                        }];
     } else if (sellerID && [self.currentSellerId isEqualToString:sellerID]) {
         completion ? completion(nil) : nil;
     } else {
-        NSString *description = @"BidMachine's initialization skipped. The sellerId is empty or has an incorrect type.";
-        NSDictionary *userInfo = @{NSLocalizedDescriptionKey : description,
-                                   NSLocalizedFailureReasonErrorKey : description};
-        NSError *error = [NSError errorWithDomain:@"com.google.mediation.bidmachine" code:0 userInfo:userInfo];
-        NSLog(@"BidMachine's initialization skipped. The sellerId is empty or has an incorrect type.");
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey : @"BidMachine's initialization skipped",
+                                   NSLocalizedFailureReasonErrorKey: @"The seller id is empty or has an incorrect type"
+                                   };
+        NSError *error = [NSError errorWithDomain:kGADBidMachineErrorDomain
+                                             code:0
+                                         userInfo:userInfo];
         completion ? completion(error) : nil;
     }
 }
 
 - (NSDictionary *)requestInfoFrom:(NSString *)string
                           request:(GADCustomEventRequest *)request {
+    // Get data from request
     NSMutableDictionary *requestInfo = [NSMutableDictionary new];
-    
     if (request.additionalParameters) {
         [requestInfo addEntriesFromDictionary:request.additionalParameters];
     }
-    
-    [requestInfo addEntriesFromDictionary:[self requestInfoFrom:string]];
-    
+    // Get data from serialized string
+    NSDictionary *deserializedInfo = [self deserializedString:string];
+    if (deserializedInfo.count) {
+        [requestInfo addEntriesFromDictionary:deserializedInfo];
+    }
+    // Get user location info
     if (request.userHasLocation) {
         requestInfo[kBidMachineLatitude] = @(request.userLatitude);
         requestInfo[kBidMachineLongitude] = @(request.userLongitude);
@@ -162,10 +89,12 @@ NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors) {
     return requestInfo;
 }
 
-- (NSDictionary *)requestInfoFrom:(NSString *)string {
+- (NSDictionary *)deserializedString:(NSString *)string {
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error = nil;
-    NSDictionary *requestInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *requestInfo = [NSJSONSerialization JSONObjectWithData:data
+                                                                options:NSJSONReadingAllowFragments
+                                                                  error:&error];
     if (error) {
         NSLog(@"%@", error.localizedDescription);
     }
@@ -175,37 +104,57 @@ NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors) {
 - (NSDictionary *)requestInfoFromConnector:(id<GADMAdNetworkConnector>)connector {
     NSMutableDictionary *requestInfo = [NSMutableDictionary new];
     NSString *parameters = [connector.credentials valueForKey:@"parameter"];
-   
+    // Test mode
     if (connector.testMode) {
         requestInfo[kBidMachineTestMode] = @YES;
     }
-    
+    // COPPA
     if (connector.childDirectedTreatment) {
         requestInfo[kBidMachineCoppa] = @YES;
     }
-    
+    // Network extrass
     if ([connector.networkExtras isKindOfClass:GADBidMachineNetworkExtras.class]) {
         NSDictionary *networkExtras = [(GADBidMachineNetworkExtras *)connector.networkExtras extras];
         [requestInfo addEntriesFromDictionary:networkExtras];
     }
-    
+    // Credentials
     if (connector.credentials && parameters) {
-        NSDictionary *params = [self requestInfoFrom:parameters];
-        [requestInfo addEntriesFromDictionary:params];
+        NSDictionary *params = [self deserializedString:parameters];
+        if (params) {
+            [requestInfo addEntriesFromDictionary:params];
+        }
     }
-    
-    requestInfo[kBidMachineSellerId] = BidMachineSellerID(requestInfo[kBidMachineSellerId]);
+    // Seller ID
+    requestInfo[kBidMachineSellerId] = [GADBidMachineTransformer sellerIdFromValue:requestInfo[kBidMachineSellerId]];
     return requestInfo;
 }
 
-- (BDMTargeting *)targetingWithRequestInfo:(NSDictionary *)requestInfo location:(CLLocation *)location {
-    BDMTargeting * targeting = [BDMTargeting new];
-    
+- (NSArray <BDMAdNetworkConfiguration *> *)headerBiddingConfigurationFromRequestInfo:(NSDictionary *)requestInfo {
+    NSArray *headerBiddingConfigs = requestInfo[kBidMachineHeaderBiddingConfig];
+    NSMutableArray <BDMAdNetworkConfiguration *> *adNetworksConfigs = [NSMutableArray arrayWithCapacity:headerBiddingConfigs.count];
+    if ([headerBiddingConfigs isKindOfClass:NSArray.class]) {
+        [headerBiddingConfigs enumerateObjectsUsingBlock:^(NSDictionary *headerBiddingConfig, NSUInteger idx, BOOL *stop) {
+            if ([headerBiddingConfig isKindOfClass:NSDictionary.class]) {
+                GADBidMachineHeaderBiddingConfig *networkConfig = [GADBidMachineHeaderBiddingConfig configFromDictionary:headerBiddingConfig];
+                if (networkConfig) {
+                    [adNetworksConfigs addObject:networkConfig];
+                }
+            }
+        }];
+    }
+    return adNetworksConfigs;
+}
+
+- (BDMTargeting *)targetingWithRequestInfo:(NSDictionary *)requestInfo
+                                  location:(CLLocation *)location {
+    BDMTargeting *targeting = [BDMTargeting new];
+    // Location
     if (location) {
         [targeting setDeviceLocation:location];
     }
     
-    if (requestInfo) {
+    // Request info
+    if (requestInfo.count) {
         targeting.userId                = requestInfo[kBidMachineUserId] ?: targeting.userId;
         targeting.gender                = requestInfo[kBidMachineGender] ?: targeting.gender;
         targeting.yearOfBirth           = requestInfo[kBidMachineYearOfBirth] ?: targeting.yearOfBirth;
@@ -222,6 +171,16 @@ NSArray<BDMPriceFloor *> *BDMPriceFloors(NSArray *priceFloors) {
     }
     
     return targeting;
+}
+
+- (NSURL *)transformEndpointURL:(id)endpoint {
+    NSURL *endpointURL;
+    if ([endpoint isKindOfClass:NSURL.class]) {
+        endpointURL = endpoint;
+    } else if ([endpoint isKindOfClass:NSString.class]) {
+        endpointURL = [NSURL URLWithString:endpoint];
+    }
+    return endpointURL;
 }
 
 @end

@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "GADBidMachineNetworkExtras.h"
-#import <BidMachine/BidMachine.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 @import GoogleMobileAdsMediationTestSuite;

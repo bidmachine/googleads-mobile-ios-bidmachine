@@ -12,6 +12,7 @@
 #import "GADBidMachineUtils+Request.h"
 #import <BidMachine/BidMachine.h>
 
+
 @interface GADMBidMachineRewardedAd () <BDMRewardedDelegate>
 
 @property (nonatomic, weak) id<GADMRewardBasedVideoAdNetworkConnector> rewardedAdConnector;
@@ -22,7 +23,7 @@
 @implementation GADMBidMachineRewardedAd
 
 + (NSString *)adapterVersion {
-    return @"1.1.1.0";
+    return @"1.3.0.0";
 }
 
 + (Class<GADAdNetworkExtras>)networkExtrasClass {
@@ -33,10 +34,12 @@
     if (!connector) {
         return nil;
     }
+    
     self = [super init];
     if (self) {
         _rewardedAdConnector = connector;
     }
+    
     return self;
 }
 

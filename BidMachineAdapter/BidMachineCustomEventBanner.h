@@ -10,7 +10,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 
-@interface BidMachineCustomEventBanner : NSObject<GADCustomEventBanner>
+@interface BidMachineCustomEventBanner : NSObject <GADCustomEventBanner>
 
 @property (nonatomic, weak) id<GADCustomEventBannerDelegate> delegate;
 

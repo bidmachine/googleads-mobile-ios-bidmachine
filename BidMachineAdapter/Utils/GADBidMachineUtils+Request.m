@@ -8,6 +8,8 @@
 
 #import "GADBidMachineUtils+Request.h"
 #import "GADMAdapterBidMachineConstants.h"
+#import "GADBidMachineTransformer.h"
+
 #import <GoogleMobileAds/GoogleMobileAds.h>
 #import <BidMachine/BidMachine.h>
 
@@ -25,7 +27,8 @@
 - (BDMInterstitialRequest *)interstitialRequestWithRequestInfo:(NSDictionary *)requestInfo {
     BDMInterstitialRequest *interstitialRequest = [BDMInterstitialRequest new];
     [self configureRequest:interstitialRequest info:requestInfo];
-    [interstitialRequest setType:BDMFullscreenAdTypeFromString(requestInfo[kBidMachineAdContentType])];
+    BDMFullscreenAdType type = [GADBidMachineTransformer adTypeFromString:requestInfo[kBidMachineAdContentType]];
+    [interstitialRequest setType:type];
     return interstitialRequest;
 }
 
@@ -56,7 +59,8 @@
     [BDMSdk.sharedSdk setRestrictions:restrictions];
     
     request.targeting = [GADBidMachineUtils.sharedUtils targetingWithRequestInfo:info location:location];
-    request.priceFloors = BDMPriceFloors(info[kBidMachinePriceFloors]) ?: request.priceFloors;
+    NSArray <BDMPriceFloor *> *pricefloors = [GADBidMachineTransformer priceFloorsFromArray:info[kBidMachinePriceFloors]];
+    request.priceFloors = pricefloors ?: request.priceFloors;
 }
 
 @end

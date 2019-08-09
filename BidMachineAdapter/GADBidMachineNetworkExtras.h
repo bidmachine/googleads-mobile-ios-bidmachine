@@ -8,6 +8,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "GADBidMachineHeaderBiddingConfig.h"
+
 
 @interface GADBidMachineNetworkExtras : NSObject <GADAdNetworkExtras>
 /**
@@ -22,6 +24,10 @@
  Enable logging. By default logging disabled.
  */
 @property (nonatomic, assign) BOOL loggingEnabled;
+/**
+ Base URL for SDK initialisation
+ */
+@property (nonatomic, copy) NSURL *baseURL;
 /**
  Setup that user is under GDPR.
  */
@@ -102,6 +108,8 @@
  Bids configuration for current request.
  */
 @property (nonatomic, copy) NSArray *priceFloors;
+
+@property (nonatomic, copy) NSArray <GADBidMachineHeaderBiddingConfig *> *headerBiddingConfigs;
 /**
  Creates dictionary from properties.
  */

@@ -24,17 +24,29 @@
                                      label:(nullable NSString *)serverLabel
                                    request:(GADCustomEventRequest *)request {
     __weak typeof(self) weakSelf = self;
-    NSDictionary *requestInfo = [[GADBidMachineUtils sharedUtils] requestInfoFrom:serverParameter request:request];
-    [[GADBidMachineUtils sharedUtils] initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
-        weakSelf.interstitial.delegate = weakSelf;
-        BDMInterstitialRequest *interstitialRequest = [[GADBidMachineUtils sharedUtils] interstitialRequestWithRequestInfo:requestInfo];
-        [weakSelf.interstitial populateWithRequest:interstitialRequest];
-    }];
+    NSDictionary *requestInfo = [GADBidMachineUtils.sharedUtils requestInfoFrom:serverParameter
+                                                                        request:request];
+    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo
+                                                             completion:^(NSError *error) {
+                                                                 weakSelf.interstitial.delegate = weakSelf;
+                                                                 BDMInterstitialRequest *interstitialRequest = [GADBidMachineUtils.sharedUtils interstitialRequestWithRequestInfo:requestInfo];
+                                                                 [weakSelf.interstitial populateWithRequest:interstitialRequest];
+                                                             }];
 }
 
 - (void)presentFromRootViewController:(UIViewController *)rootViewController {
-    if ([self.interstitial isLoaded]) {
+    if (self.interstitial.canShow) {
         [self.interstitial presentFromRootViewController:rootViewController];
+    } else {
+        NSString *description = @"BidMachine interstitial can't show ad";
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey : description
+                                   };
+
+        NSError *error = [NSError errorWithDomain:kGADBidMachineErrorDomain
+                                             code:1
+                                         userInfo:userInfo];
+        [self.delegate customEventInterstitial:self didFailAd:error];
     }
 }
 
@@ -43,6 +55,7 @@
 - (BDMInterstitial *)interstitial {
     if (!_interstitial) {
         _interstitial = [BDMInterstitial new];
+        _interstitial.delegate = self;
     }
     return _interstitial;
 }

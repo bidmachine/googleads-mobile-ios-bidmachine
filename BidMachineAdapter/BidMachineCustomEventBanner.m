@@ -8,10 +8,12 @@
 
 #import "BidMachineCustomEventBanner.h"
 #import "GADBidMachineUtils+Request.h"
+#import "GADBidMachineTransformer.h"
+
 #import <BidMachine/BidMachine.h>
 
 
-@interface BidMachineCustomEventBanner () <BDMBannerDelegate>
+@interface BidMachineCustomEventBanner () <BDMBannerDelegate, BDMAdEventProducerDelegate>
 
 @property (nonatomic, strong) BDMBannerView *bannerView;
 
@@ -21,18 +23,21 @@
 @implementation BidMachineCustomEventBanner
 
 - (void)requestBannerAd:(GADAdSize)adSize
-              parameter:(nullable NSString *)serverParameter
-                  label:(nullable NSString *)serverLabel
+              parameter:(NSString *)serverParameter
+                  label:(NSString *)serverLabel
                 request:(GADCustomEventRequest *)request {
     __weak typeof(self) weakSelf = self;
-    NSDictionary *requestInfo = [[GADBidMachineUtils sharedUtils] requestInfoFrom:serverParameter request:request];
-    [[GADBidMachineUtils sharedUtils] initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
-        BDMBannerAdSize size = BDMBannerAdSizeFromGADAdSize(adSize);
-        BDMBannerRequest *bannerRequest = [[GADBidMachineUtils sharedUtils] bannerRequestWithSize:size requestInfo:requestInfo];
-        weakSelf.bannerView.delegate = weakSelf;
-        [weakSelf.bannerView setFrame:CGRectMake(0, 0, adSize.size.width, adSize.size.height)];
-        [weakSelf.bannerView populateWithRequest:bannerRequest];
-    }];
+    NSDictionary *requestInfo = [GADBidMachineUtils.sharedUtils requestInfoFrom:serverParameter
+                                                                        request:request];
+    
+    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo
+                                                             completion:^(NSError *error) {
+                                                                 BDMBannerAdSize size = [GADBidMachineTransformer adSizeFromGADAdSize:adSize];
+                                                                 BDMBannerRequest *bannerRequest = [GADBidMachineUtils.sharedUtils bannerRequestWithSize:size
+                                                                                                                                             requestInfo:requestInfo];
+                                                                 [weakSelf.bannerView setFrame:CGRectMake(0, 0, adSize.size.width, adSize.size.height)];
+                                                                 [weakSelf.bannerView populateWithRequest:bannerRequest];
+                                                             }];
 }
 
 #pragma mark - Lazy
@@ -40,6 +45,9 @@
 - (BDMBannerView *)bannerView {
     if (!_bannerView) {
         _bannerView = [BDMBannerView new];
+        _bannerView.rootViewController = self.delegate.viewControllerForPresentingModalView;
+        _bannerView.delegate = self;
+        _bannerView.producerDelegate = self;
     }
     return _bannerView;
 }
@@ -69,5 +77,11 @@
 - (void)bannerViewDidDismissScreen:(BDMBannerView *)bannerView {
     [self.delegate customEventBannerDidDismissModal:self];
 }
+
+#pragma mark - BDMAdEventProducerDelegate
+
+// Currently noop
+- (void)didProduceImpression:(id<BDMAdEventProducer>)producer {}
+- (void)didProduceUserAction:(id<BDMAdEventProducer>)producer {}
 
 @end

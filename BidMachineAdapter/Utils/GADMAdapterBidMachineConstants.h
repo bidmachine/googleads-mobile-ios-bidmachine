@@ -8,6 +8,7 @@
 
 static NSString * const kBidMachineSellerId = @"seller_id";
 static NSString * const kBidMachineTestMode = @"test_mode";
+static NSString * const kBidMachineEndpoint = @"endpoint";
 static NSString * const kBidMachineLoggingEnabled = @"logging_enabled";
 static NSString * const kBidMachineCoppa = @"coppa";
 static NSString * const kBidMachineAdContentType = @"ad_content_type";
@@ -30,3 +31,8 @@ static NSString * const kBidMachineBlockedApps = @"bapps";
 static NSString * const kBidMachinePriceFloors = @"price_floors";
 static NSString * const kBidMachineLatitude = @"lat";
 static NSString * const kBidMachineLongitude = @"lon";
+static NSString * const kBidMachineHeaderBiddingConfig = @"mediation_config";
+static NSString * const kBidMachineHeaderBiddingNetworkName = @"network";
+static NSString * const kBidMachineHeaderBiddingNetworkClass = @"network_class";
+static NSString * const kBidMachineHeaderBiddingAdUnits = @"ad_units";
+static NSString * const kBidMachineHeaderBiddingAdUnitFormat = @"format";

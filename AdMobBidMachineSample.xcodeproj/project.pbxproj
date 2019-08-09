@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4216C1AF22FD9A2F0030C5DA /* GADBidMachineTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4216C1AE22FD9A2F0030C5DA /* GADBidMachineTransformer.m */; };
+		4216C1B322FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4216C1B222FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.m */; };
 		43AAFF1288CBB7384593ACAE /* libPods-BidMachineAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE23AE142768802690EC2630 /* libPods-BidMachineAdapter.a */; };
 		AF1F086CF84CD32DECF3A9F0 /* libPods-AdMobBidMachineSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACE6847432E93E543FB66D85 /* libPods-AdMobBidMachineSample.a */; };
 		D9129673228AA8D1002A8C51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9129672228AA8D1002A8C51 /* AppDelegate.m */; };
@@ -37,6 +39,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4216C1AD22FD9A2F0030C5DA /* GADBidMachineTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GADBidMachineTransformer.h; sourceTree = "<group>"; };
+		4216C1AE22FD9A2F0030C5DA /* GADBidMachineTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GADBidMachineTransformer.m; sourceTree = "<group>"; };
+		4216C1B122FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GADBidMachineHeaderBiddingConfig.h; sourceTree = "<group>"; };
+		4216C1B222FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GADBidMachineHeaderBiddingConfig.m; sourceTree = "<group>"; };
 		4BF3F9D80DCCECD043B40FB6 /* Pods-BidMachineAdapter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BidMachineAdapter.release.xcconfig"; path = "Target Support Files/Pods-BidMachineAdapter/Pods-BidMachineAdapter.release.xcconfig"; sourceTree = "<group>"; };
 		60409323F36DE76172B558F6 /* Pods-AdMobBidMachineSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdMobBidMachineSample.release.xcconfig"; path = "Target Support Files/Pods-AdMobBidMachineSample/Pods-AdMobBidMachineSample.release.xcconfig"; sourceTree = "<group>"; };
 		709BF3846C121BA356C7EB81 /* Pods-AdMobBidMachineSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdMobBidMachineSample.debug.xcconfig"; path = "Target Support Files/Pods-AdMobBidMachineSample/Pods-AdMobBidMachineSample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +96,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4216C1B022FD9CB50030C5DA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D91296A0228AEE7C002A8C51 /* GADBidMachineNetworkExtras.h */,
+				D91296A1228AEE7C002A8C51 /* GADBidMachineNetworkExtras.m */,
+				4216C1B122FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.h */,
+				4216C1B222FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		D58118BF3C2C1EA19BABCEEF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +157,7 @@
 		D912968C228AAB01002A8C51 /* BidMachineAdapter */ = {
 			isa = PBXGroup;
 			children = (
+				4216C1B022FD9CB50030C5DA /* Models */,
 				D9FB5649228D85AD00D84AF7 /* Utils */,
 				D9129697228ABE49002A8C51 /* BidMachineCustomEventBanner.h */,
 				D9129698228ABE49002A8C51 /* BidMachineCustomEventBanner.m */,
@@ -147,8 +165,6 @@
 				D91296A5228BF769002A8C51 /* BidMachineCustomEventInterstitial.m */,
 				D91296A7228BF782002A8C51 /* GADMBidMachineRewardedAd.h */,
 				D91296A8228BF782002A8C51 /* GADMBidMachineRewardedAd.m */,
-				D91296A0228AEE7C002A8C51 /* GADBidMachineNetworkExtras.h */,
-				D91296A1228AEE7C002A8C51 /* GADBidMachineNetworkExtras.m */,
 			);
 			path = BidMachineAdapter;
 			sourceTree = "<group>";
@@ -156,11 +172,13 @@
 		D9FB5649228D85AD00D84AF7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D9FB564A228D8F1E00D84AF7 /* GADMAdapterBidMachineConstants.h */,
 				D912969A228ABFFD002A8C51 /* GADBidMachineUtils.h */,
 				D912969B228ABFFD002A8C51 /* GADBidMachineUtils.m */,
+				4216C1AD22FD9A2F0030C5DA /* GADBidMachineTransformer.h */,
+				4216C1AE22FD9A2F0030C5DA /* GADBidMachineTransformer.m */,
 				D912969D228ADCBB002A8C51 /* GADBidMachineUtils+Request.h */,
 				D912969E228ADCBB002A8C51 /* GADBidMachineUtils+Request.m */,
-				D9FB564A228D8F1E00D84AF7 /* GADMAdapterBidMachineConstants.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -321,6 +339,8 @@
 				"${PODS_ROOT}/MaterialComponents/components/Dialogs/src/MaterialDialogs.bundle",
 				"${PODS_ROOT}/MaterialComponents/components/Tabs/src/MaterialTabs.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents/MaterialIcons_ic_check_circle.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.3.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.3.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
@@ -330,6 +350,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialDialogs.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialTabs.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons_ic_check_circle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TapjoyResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -354,10 +375,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D91296A6228BF769002A8C51 /* BidMachineCustomEventInterstitial.m in Sources */,
+				4216C1B322FD9CEB0030C5DA /* GADBidMachineHeaderBiddingConfig.m in Sources */,
 				D91296A2228AEE7C002A8C51 /* GADBidMachineNetworkExtras.m in Sources */,
 				D912969C228ABFFD002A8C51 /* GADBidMachineUtils.m in Sources */,
 				D912969F228ADCBB002A8C51 /* GADBidMachineUtils+Request.m in Sources */,
 				D91296A9228BF782002A8C51 /* GADMBidMachineRewardedAd.m in Sources */,
+				4216C1AF22FD9A2F0030C5DA /* GADBidMachineTransformer.m in Sources */,
 				D9129699228ABE49002A8C51 /* BidMachineCustomEventBanner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

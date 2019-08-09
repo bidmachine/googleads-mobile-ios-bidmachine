@@ -8,6 +8,7 @@
 
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
+
 @interface GADMBidMachineRewardedAd : NSObject <GADMRewardBasedVideoAdNetworkAdapter>
 
 @end
