@@ -16,6 +16,7 @@ FOUNDATION_EXPORT NSString *const kGADBidMachineErrorDomain;
 @interface GADBidMachineUtils : NSObject
 
 + (instancetype)sharedUtils;
+
 - (void)initializeBidMachineWithRequestInfo:(NSDictionary *)requestInfo
                                  completion:(void(^)(NSError *))completion;
 - (NSDictionary *)requestInfoFrom:(NSString *)string

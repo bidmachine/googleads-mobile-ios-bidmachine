@@ -20,18 +20,17 @@
 
 @implementation BidMachineCustomEventInterstitial
 
-- (void)requestInterstitialAdWithParameter:(nullable NSString *)serverParameter
-                                     label:(nullable NSString *)serverLabel
+- (void)requestInterstitialAdWithParameter:(NSString *)serverParameter
+                                     label:(NSString *)serverLabel
                                    request:(GADCustomEventRequest *)request {
     __weak typeof(self) weakSelf = self;
     NSDictionary *requestInfo = [GADBidMachineUtils.sharedUtils requestInfoFrom:serverParameter
                                                                         request:request];
-    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo
-                                                             completion:^(NSError *error) {
-                                                                 weakSelf.interstitial.delegate = weakSelf;
-                                                                 BDMInterstitialRequest *interstitialRequest = [GADBidMachineUtils.sharedUtils interstitialRequestWithRequestInfo:requestInfo];
-                                                                 [weakSelf.interstitial populateWithRequest:interstitialRequest];
-                                                             }];
+    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
+        weakSelf.interstitial.delegate = weakSelf;
+        BDMInterstitialRequest *request = [GADBidMachineUtils.sharedUtils interstitialRequestWithRequestInfo:requestInfo];
+        [weakSelf.interstitial populateWithRequest:request];
+    }];
 }
 
 - (void)presentFromRootViewController:(UIViewController *)rootViewController {
@@ -39,10 +38,7 @@
         [self.interstitial presentFromRootViewController:rootViewController];
     } else {
         NSString *description = @"BidMachine interstitial can't show ad";
-        NSDictionary *userInfo = @{
-                                   NSLocalizedDescriptionKey : description
-                                   };
-
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : description };
         NSError *error = [NSError errorWithDomain:kGADBidMachineErrorDomain
                                              code:1
                                          userInfo:userInfo];

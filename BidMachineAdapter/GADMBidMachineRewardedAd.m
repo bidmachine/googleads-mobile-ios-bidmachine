@@ -20,6 +20,7 @@
 
 @end
 
+
 @implementation GADMBidMachineRewardedAd
 
 + (NSString *)adapterVersion {
@@ -45,26 +46,28 @@
 
 - (void)setUp {
     id<GADMRewardBasedVideoAdNetworkConnector> strongConnector = self.rewardedAdConnector;
-    NSDictionary *requestInfo = [[GADBidMachineUtils sharedUtils] requestInfoFromConnector:strongConnector];
-    [[GADBidMachineUtils sharedUtils] initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
-        if (!error) {
-            [self.rewardedAdConnector adapterDidSetUpRewardBasedVideoAd:self];
-        } else {
-            [self.rewardedAdConnector adapter:self didFailToSetUpRewardBasedVideoAdWithError:error];
-        }
-    }];
+    NSDictionary *requestInfo = [GADBidMachineUtils.sharedUtils requestInfoFromConnector:strongConnector];
+    __weak typeof(self) weakSelf = self;
+    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo
+                                                             completion:^(NSError *error) {
+                                                                 if (!error) {
+                                                                     [weakSelf.rewardedAdConnector adapterDidSetUpRewardBasedVideoAd:weakSelf];
+                                                                 } else {
+                                                                     [weakSelf.rewardedAdConnector adapter:weakSelf didFailToSetUpRewardBasedVideoAdWithError:error];
+                                                                 }
+                                                             }];
 }
 
 - (void)requestRewardBasedVideoAd {
-    id<GADMRewardBasedVideoAdNetworkConnector> strongConnector = self.rewardedAdConnector;
-    NSDictionary *requestInfo = [[GADBidMachineUtils sharedUtils] requestInfoFromConnector:strongConnector];
-    self.rewardedAd.delegate = self;
-    BDMRewardedRequest *request = [[GADBidMachineUtils sharedUtils] rewardedRequestWithRequestInfo:requestInfo];
+    NSDictionary *requestInfo = [GADBidMachineUtils.sharedUtils requestInfoFromConnector:self.rewardedAdConnector];
+    BDMRewardedRequest *request = [GADBidMachineUtils.sharedUtils rewardedRequestWithRequestInfo:requestInfo];
     [self.rewardedAd populateWithRequest:request];
 }
 
 - (void)presentRewardBasedVideoAdWithRootViewController:(UIViewController *)viewController {
-    [self.rewardedAd presentFromRootViewController:viewController];
+    if (self.rewardedAd.canShow) {
+        [self.rewardedAd presentFromRootViewController:viewController];
+    }
 }
 
 - (void)stopBeingDelegate {
@@ -76,6 +79,7 @@
 - (BDMRewarded *)rewardedAd {
     if (!_rewardedAd) {
         _rewardedAd = [BDMRewarded new];
+        _rewardedAd.delegate = self;
     }
     return _rewardedAd;
 }
@@ -108,7 +112,7 @@
 }
 
 - (void)rewardedFinishRewardAction:(BDMRewarded *)rewarded {
-    GADAdReward *reward = [[GADAdReward alloc] initWithRewardType:@"" rewardAmount:[NSDecimalNumber one]];
+    GADAdReward *reward = [[GADAdReward alloc] initWithRewardType:@"" rewardAmount:NSDecimalNumber.zero];
     [self.rewardedAdConnector adapter:self didRewardUserWithReward:reward];
 }
 

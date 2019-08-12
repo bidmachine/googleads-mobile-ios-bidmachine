@@ -26,18 +26,16 @@
               parameter:(NSString *)serverParameter
                   label:(NSString *)serverLabel
                 request:(GADCustomEventRequest *)request {
-    __weak typeof(self) weakSelf = self;
     NSDictionary *requestInfo = [GADBidMachineUtils.sharedUtils requestInfoFrom:serverParameter
                                                                         request:request];
-    
-    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo
-                                                             completion:^(NSError *error) {
-                                                                 BDMBannerAdSize size = [GADBidMachineTransformer adSizeFromGADAdSize:adSize];
-                                                                 BDMBannerRequest *bannerRequest = [GADBidMachineUtils.sharedUtils bannerRequestWithSize:size
-                                                                                                                                             requestInfo:requestInfo];
-                                                                 [weakSelf.bannerView setFrame:CGRectMake(0, 0, adSize.size.width, adSize.size.height)];
-                                                                 [weakSelf.bannerView populateWithRequest:bannerRequest];
-                                                             }];
+    __weak typeof(self) weakSelf = self;
+    [GADBidMachineUtils.sharedUtils initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
+        BDMBannerAdSize size = [GADBidMachineTransformer adSizeFromGADAdSize:adSize];
+        BDMBannerRequest *request = [GADBidMachineUtils.sharedUtils bannerRequestWithSize:size
+                                                                              requestInfo:requestInfo];
+        [weakSelf.bannerView setFrame:CGRectMake(0, 0, adSize.size.width, adSize.size.height)];
+        [weakSelf.bannerView populateWithRequest:request];
+    }];
 }
 
 #pragma mark - Lazy
