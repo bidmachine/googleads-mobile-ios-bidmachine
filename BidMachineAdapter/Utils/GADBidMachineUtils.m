@@ -20,8 +20,6 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
 
 @interface GADBidMachineUtils ()
 
-@property (nonatomic, copy) NSString *currentSellerId;
-
 @end
 
 
@@ -41,22 +39,7 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
     [BDMSdk.sharedSdk setEnableLogging:[requestInfo[kBidMachineLoggingEnabled] boolValue]];
     NSString *sellerID = [GADBidMachineTransformer sellerIdFromValue:requestInfo[kBidMachineSellerId]];
     
-    if (sellerID && ![self.currentSellerId isEqualToString:sellerID]) {
-        self.currentSellerId = sellerID;
-        BDMSdkConfiguration *config = [BDMSdkConfiguration new];
-        
-        config.testMode = [requestInfo[kBidMachineTestMode] boolValue];
-        config.baseURL = [self transformEndpointURL:requestInfo[@"endpoint"]];
-        config.networkConfigurations = [self headerBiddingConfigurationFromRequestInfo:requestInfo];
-        
-        [BDMSdk.sharedSdk startSessionWithSellerID:self.currentSellerId
-                                     configuration:config
-                                        completion:^{
-                                            completion ? completion(nil) : nil;
-                                        }];
-    } else if (sellerID && [self.currentSellerId isEqualToString:sellerID]) {
-        completion ? completion(nil) : nil;
-    } else {
+    if (!sellerID) {
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey : @"BidMachine's initialization skipped",
                                    NSLocalizedFailureReasonErrorKey: @"The seller id is empty or has an incorrect type"
@@ -65,7 +48,20 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
                                              code:0
                                          userInfo:userInfo];
         completion ? completion(error) : nil;
+        return;
     }
+    
+    BDMSdkConfiguration *config = [BDMSdkConfiguration new];
+    
+    config.testMode = [requestInfo[kBidMachineTestMode] boolValue];
+    config.baseURL = [self transformEndpointURL:requestInfo[@"endpoint"]];
+    config.networkConfigurations = [self headerBiddingConfigurationFromRequestInfo:requestInfo];
+    
+    [BDMSdk.sharedSdk startSessionWithSellerID:sellerID
+                                 configuration:config
+                                    completion:^{
+                                        completion ? completion(nil) : nil;
+                                    }];
 }
 
 - (NSDictionary *)requestInfoFrom:(NSString *)string
@@ -85,7 +81,6 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
         requestInfo[kBidMachineLatitude] = @(request.userLatitude);
         requestInfo[kBidMachineLongitude] = @(request.userLongitude);
     }
-    
     return requestInfo;
 }
 
@@ -114,7 +109,7 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
     }
     // Network extrass
     if ([connector.networkExtras isKindOfClass:GADBidMachineNetworkExtras.class]) {
-        NSDictionary *networkExtras = [(GADBidMachineNetworkExtras *)connector.networkExtras extras];
+        NSDictionary *networkExtras = [(GADBidMachineNetworkExtras *)connector.networkExtras allExtras];
         [requestInfo addEntriesFromDictionary:networkExtras];
     }
     // Credentials

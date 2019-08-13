@@ -11,7 +11,7 @@
 
 @implementation GADBidMachineNetworkExtras
 
-- (NSDictionary *)extras {
+- (NSDictionary *)allExtras {
     NSMutableDictionary *extras = [NSMutableDictionary new];
     extras[kBidMachineSellerId]             = self.sellerId;
     extras[kBidMachineTestMode]             = @(self.testMode);

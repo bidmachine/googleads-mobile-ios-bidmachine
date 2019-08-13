@@ -11,7 +11,7 @@
 #import "GADBidMachineHeaderBiddingConfig.h"
 
 
-@interface GADBidMachineNetworkExtras : NSObject <GADAdNetworkExtras>
+@interface GADBidMachineNetworkExtras : NSObject
 /**
  Your publisher id registered in exchange dashboard
  */
@@ -113,6 +113,6 @@
 /**
  Creates dictionary from properties.
  */
-- (NSDictionary *)extras;
+- (NSDictionary *)allExtras;
 
 @end

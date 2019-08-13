@@ -8,12 +8,12 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 
 def bidmachine_header_bidding
-  pod "BidMachine", "1.3.0-Beta-3"
-  pod "BidMachine/VungleAdapter", "1.3.0-Beta-3"
-  pod "BidMachine/TapjoyAdapter", "1.3.0-Beta-3"
-  pod "BidMachine/MyTargetAdapter", "1.3.0-Beta-3"
-  pod "BidMachine/FacebookAdapter", "1.3.0-Beta-3"
-  pod "BidMachine/AdColonyAdapter", "1.3.0-Beta-3"
+  pod "BidMachine", "1.3.0-Beta-5"
+  pod "BidMachine/VungleAdapter", "1.3.0-Beta-5"
+  pod "BidMachine/TapjoyAdapter", "1.3.0-Beta-5"
+  pod "BidMachine/MyTargetAdapter", "1.3.0-Beta-5"
+  pod "BidMachine/FacebookAdapter", "1.3.0-Beta-5"
+  pod "BidMachine/AdColonyAdapter", "1.3.0-Beta-5"
 end
 
 

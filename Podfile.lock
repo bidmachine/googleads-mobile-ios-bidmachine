@@ -1,24 +1,24 @@
 PODS:
   - AdColony (3.3.8.1)
-  - BidMachine (1.3.0-Beta-3):
-    - BidMachine/Core (= 1.3.0-Beta-3)
-  - BidMachine/AdColonyAdapter (1.3.0-Beta-3):
+  - BidMachine (1.3.0-Beta-5):
+    - BidMachine/Core (= 1.3.0-Beta-5)
+  - BidMachine/AdColonyAdapter (1.3.0-Beta-5):
     - AdColony (~> 3.3)
     - BidMachine/Core
-  - BidMachine/Core (1.3.0-Beta-3):
+  - BidMachine/Core (1.3.0-Beta-5):
     - Protobuf (~> 3.9)
     - StackIAB (~> 0.5.0)
     - StackModules (~> 0.6.3)
-  - BidMachine/FacebookAdapter (1.3.0-Beta-3):
+  - BidMachine/FacebookAdapter (1.3.0-Beta-5):
     - BidMachine/Core
     - FBAudienceNetwork (~> 5.4)
-  - BidMachine/MyTargetAdapter (1.3.0-Beta-3):
+  - BidMachine/MyTargetAdapter (1.3.0-Beta-5):
     - BidMachine/Core
     - myTargetSDK (~> 5.3)
-  - BidMachine/TapjoyAdapter (1.3.0-Beta-3):
+  - BidMachine/TapjoyAdapter (1.3.0-Beta-5):
     - BidMachine/Core
     - TapjoySDK (~> 12.3)
-  - BidMachine/VungleAdapter (1.3.0-Beta-3):
+  - BidMachine/VungleAdapter (1.3.0-Beta-5):
     - BidMachine/Core
     - VungleSDK-iOS (~> 6.3)
   - FBAudienceNetwork (5.4.0)
@@ -148,12 +148,12 @@ PODS:
   - VungleSDK-iOS (6.3.2)
 
 DEPENDENCIES:
-  - BidMachine (= 1.3.0-Beta-3)
-  - BidMachine/AdColonyAdapter (= 1.3.0-Beta-3)
-  - BidMachine/FacebookAdapter (= 1.3.0-Beta-3)
-  - BidMachine/MyTargetAdapter (= 1.3.0-Beta-3)
-  - BidMachine/TapjoyAdapter (= 1.3.0-Beta-3)
-  - BidMachine/VungleAdapter (= 1.3.0-Beta-3)
+  - BidMachine (= 1.3.0-Beta-5)
+  - BidMachine/AdColonyAdapter (= 1.3.0-Beta-5)
+  - BidMachine/FacebookAdapter (= 1.3.0-Beta-5)
+  - BidMachine/MyTargetAdapter (= 1.3.0-Beta-5)
+  - BidMachine/TapjoyAdapter (= 1.3.0-Beta-5)
+  - BidMachine/VungleAdapter (= 1.3.0-Beta-5)
   - Google-Mobile-Ads-SDK
   - GoogleMobileAdsMediationTestSuite
 
@@ -180,7 +180,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AdColony: 21c9cdcc780854d406e213cb1e5ef9f2b165cca3
-  BidMachine: 4be1380f906d2c1683ba18102e0e78c651c5acb3
+  BidMachine: dcdba1ea853e5937b4cbd082487a8010ada4aa38
   FBAudienceNetwork: d139bc387b26f018bedef8f5a75e7affae0bc77d
   Google-Mobile-Ads-SDK: 709fa768c3ba8e8b260d8cb085c607097fd3f79d
   GoogleAppMeasurement: 47285fa897e5a125df56b9ef8750a1d81e4598a8
@@ -197,6 +197,6 @@ SPEC CHECKSUMS:
   TapjoySDK: 753e103874719a63dd37c479bd8046db3c274cd6
   VungleSDK-iOS: 69a7f407b60281d2954ffc5eeeac349fbfed51d6
 
-PODFILE CHECKSUM: 9627dd154ae40148aea12f705bf38b29655327d1
+PODFILE CHECKSUM: 3e841932d8baa768f89c5e8c8eba036d9d66e779
 
 COCOAPODS: 1.6.1
