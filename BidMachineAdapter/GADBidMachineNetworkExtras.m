@@ -37,11 +37,11 @@
     extras[kBidMachineLongitude]            = @(self.userLongitude);
     extras[kBidMachineCoppa]                = self.coppa ? @YES : nil;
     extras[kBidMachinePriceFloors]          = self.priceFloors;
-    extras[kBidMachineHeaderBiddingConfig]  = self.headerBiddingConfigsJson;
+    extras[kBidMachineHeaderBiddingConfig]  = self.headerBiddingConfigsJsonArray;
     return extras;
 }
 
-- (NSArray *)headerBiddingConfigsJson {
+- (NSArray *)headerBiddingConfigsJsonArray {
     NSMutableArray *json = [NSMutableArray arrayWithCapacity:self.headerBiddingConfigs.count];
     [self.headerBiddingConfigs enumerateObjectsUsingBlock:^(GADBidMachineHeaderBiddingConfig *config, NSUInteger idx, BOOL *stop) {
         [json addObject:config.config];

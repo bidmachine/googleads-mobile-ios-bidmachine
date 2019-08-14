@@ -75,11 +75,17 @@
     NSMutableArray<BDMPriceFloor *> *priceFloorsArr = priceFloors.count > 0 ? [NSMutableArray new] : nil;
     [priceFloors enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:NSDictionary.class]) {
-            BDMPriceFloor *priceFloor = [BDMPriceFloor new];
-            NSDictionary *object = (NSDictionary *)obj;
-            [priceFloor setID: object.allKeys[0]];
-            [priceFloor setValue: object.allValues[0]];
-            [priceFloorsArr addObject:priceFloor];
+            NSDictionary *dict = (NSDictionary *)obj;
+            NSString *key = dict.allKeys.firstObject;
+            NSDecimalNumber *value = [dict[key] isKindOfClass:NSNumber.class] ?
+                [NSDecimalNumber decimalNumberWithDecimal:[dict[key] decimalValue]] :
+                nil;
+            if (key && value) {
+                BDMPriceFloor *priceFloor = [BDMPriceFloor new];
+                [priceFloor setID:key];
+                [priceFloor setValue:value];
+                [priceFloorsArr addObject:priceFloor];
+            }
         } else if ([obj isKindOfClass:NSNumber.class]) {
             BDMPriceFloor *priceFloor = [BDMPriceFloor new];
             NSNumber *object = (NSNumber *)obj;

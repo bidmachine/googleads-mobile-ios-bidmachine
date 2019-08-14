@@ -67,6 +67,14 @@
 - (void)presentRewardBasedVideoAdWithRootViewController:(UIViewController *)viewController {
     if (self.rewardedAd.canShow) {
         [self.rewardedAd presentFromRootViewController:viewController];
+    } {
+        NSString *description = @"BidMachine rewarded ad can't show ad";
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : description };
+        NSError *error = [NSError errorWithDomain:kGADBidMachineErrorDomain
+                                             code:1
+                                         userInfo:userInfo];
+        
+        [self.rewardedAdConnector adapter:self didFailToLoadRewardBasedVideoAdwithError:error];
     }
 }
 
