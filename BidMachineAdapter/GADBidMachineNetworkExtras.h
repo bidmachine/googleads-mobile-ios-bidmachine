@@ -11,7 +11,7 @@
 #import "GADBidMachineHeaderBiddingConfig.h"
 
 
-@interface GADBidMachineNetworkExtras : NSObject
+@interface GADBidMachineNetworkExtras : NSObject <GADAdNetworkExtras>
 /**
  Your publisher id registered in exchange dashboard
  */
