@@ -1,24 +1,24 @@
 PODS:
   - AdColony (3.3.8.1)
-  - BidMachine (1.3.0-Beta-5):
-    - BidMachine/Core (= 1.3.0-Beta-5)
-  - BidMachine/AdColonyAdapter (1.3.0-Beta-5):
+  - BidMachine (1.3.0):
+    - BidMachine/Core (= 1.3.0)
+  - BidMachine/AdColonyAdapter (1.3.0):
     - AdColony (~> 3.3)
     - BidMachine/Core
-  - BidMachine/Core (1.3.0-Beta-5):
+  - BidMachine/Core (1.3.0):
     - Protobuf (~> 3.9)
     - StackIAB (~> 0.5.0)
     - StackModules (~> 0.6.3)
-  - BidMachine/FacebookAdapter (1.3.0-Beta-5):
+  - BidMachine/FacebookAdapter (1.3.0):
     - BidMachine/Core
     - FBAudienceNetwork (~> 5.4)
-  - BidMachine/MyTargetAdapter (1.3.0-Beta-5):
+  - BidMachine/MyTargetAdapter (1.3.0):
     - BidMachine/Core
     - myTargetSDK (~> 5.3)
-  - BidMachine/TapjoyAdapter (1.3.0-Beta-5):
+  - BidMachine/TapjoyAdapter (1.3.0):
     - BidMachine/Core
     - TapjoySDK (~> 12.3)
-  - BidMachine/VungleAdapter (1.3.0-Beta-5):
+  - BidMachine/VungleAdapter (1.3.0):
     - BidMachine/Core
     - VungleSDK-iOS (~> 6.3)
   - FBAudienceNetwork (5.4.0)
@@ -35,21 +35,21 @@ PODS:
     - MaterialComponents/Cards (~> 76.0)
     - MaterialComponents/Dialogs (~> 76.0)
     - MaterialComponents/Tabs (~> 76.0)
-  - GoogleUtilities/AppDelegateSwizzler (6.2.4):
+  - GoogleUtilities/AppDelegateSwizzler (6.2.5):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.2.4)
-  - GoogleUtilities/Logger (6.2.4):
+  - GoogleUtilities/Environment (6.2.5)
+  - GoogleUtilities/Logger (6.2.5):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.2.4):
+  - GoogleUtilities/MethodSwizzler (6.2.5):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.2.4):
+  - GoogleUtilities/Network (6.2.5):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.2.4)"
-  - GoogleUtilities/Reachability (6.2.4):
+  - "GoogleUtilities/NSData+zlib (6.2.5)"
+  - GoogleUtilities/Reachability (6.2.5):
     - GoogleUtilities/Logger
   - MaterialComponents/AnimationTiming (76.1.2)
   - MaterialComponents/Buttons (76.1.2):
@@ -148,12 +148,12 @@ PODS:
   - VungleSDK-iOS (6.3.2)
 
 DEPENDENCIES:
-  - BidMachine (= 1.3.0-Beta-5)
-  - BidMachine/AdColonyAdapter (= 1.3.0-Beta-5)
-  - BidMachine/FacebookAdapter (= 1.3.0-Beta-5)
-  - BidMachine/MyTargetAdapter (= 1.3.0-Beta-5)
-  - BidMachine/TapjoyAdapter (= 1.3.0-Beta-5)
-  - BidMachine/VungleAdapter (= 1.3.0-Beta-5)
+  - BidMachine (= 1.3.0)
+  - BidMachine/AdColonyAdapter (= 1.3.0)
+  - BidMachine/FacebookAdapter (= 1.3.0)
+  - BidMachine/MyTargetAdapter (= 1.3.0)
+  - BidMachine/TapjoyAdapter (= 1.3.0)
+  - BidMachine/VungleAdapter (= 1.3.0)
   - Google-Mobile-Ads-SDK
   - GoogleMobileAdsMediationTestSuite
 
@@ -180,12 +180,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AdColony: 21c9cdcc780854d406e213cb1e5ef9f2b165cca3
-  BidMachine: dcdba1ea853e5937b4cbd082487a8010ada4aa38
+  BidMachine: 824a31d77ec7256e6e1d40cf4ac30d8a7c22ce06
   FBAudienceNetwork: d139bc387b26f018bedef8f5a75e7affae0bc77d
   Google-Mobile-Ads-SDK: 709fa768c3ba8e8b260d8cb085c607097fd3f79d
   GoogleAppMeasurement: 47285fa897e5a125df56b9ef8750a1d81e4598a8
   GoogleMobileAdsMediationTestSuite: 5fa71a97dd0be6e45a98d12ffd78ff0829051cd6
-  GoogleUtilities: 64b5e3982b1b01bda26712affd5c523ef32563cf
+  GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
   MaterialComponents: 1aef341d47fbaed37ddb5163a01af94cb6da8506
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
@@ -197,6 +197,6 @@ SPEC CHECKSUMS:
   TapjoySDK: 753e103874719a63dd37c479bd8046db3c274cd6
   VungleSDK-iOS: 69a7f407b60281d2954ffc5eeeac349fbfed51d6
 
-PODFILE CHECKSUM: 3e841932d8baa768f89c5e8c8eba036d9d66e779
+PODFILE CHECKSUM: eb3c05eb819c0a78d2d9b298cf598169ce16690e
 
 COCOAPODS: 1.6.1
