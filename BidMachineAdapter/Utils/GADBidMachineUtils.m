@@ -7,6 +7,7 @@
 //
 
 #import "GADBidMachineUtils.h"
+#import "GADBidMachineUtils+Request.h"
 #import "GADMAdapterBidMachineConstants.h"
 #import "GADBidMachineNetworkExtras.h"
 #import "GADBidMachineTransformer.h"
@@ -36,9 +37,10 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
 
 - (void)initializeBidMachineWithRequestInfo:(NSDictionary *)requestInfo
                                  completion:(void(^)(NSError *))completion {
+    // Sync logging
     [BDMSdk.sharedSdk setEnableLogging:[requestInfo[kBidMachineLoggingEnabled] boolValue]];
+    // Check seller id
     NSString *sellerID = [GADBidMachineTransformer sellerIdFromValue:requestInfo[kBidMachineSellerId]];
-    
     if (!sellerID) {
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey : @"BidMachine's initialization skipped",
@@ -50,13 +52,15 @@ NSString *const kGADBidMachineErrorDomain = @"com.google.mediation.bidmachine";
         completion ? completion(error) : nil;
         return;
     }
-    
+    // Sync restictions
+    BDMUserRestrictions *restrictions = [self userRestrictionsWithRequestInfo:requestInfo];
+    [BDMSdk.sharedSdk setRestrictions:restrictions];
+    // Get config
     BDMSdkConfiguration *config = [BDMSdkConfiguration new];
-    
     config.testMode = [requestInfo[kBidMachineTestMode] boolValue];
     config.baseURL = [self transformEndpointURL:requestInfo[@"endpoint"]];
     config.networkConfigurations = [self headerBiddingConfigurationFromRequestInfo:requestInfo];
-    
+    // Start session
     [BDMSdk.sharedSdk startSessionWithSellerID:sellerID
                                  configuration:config
                                     completion:^{

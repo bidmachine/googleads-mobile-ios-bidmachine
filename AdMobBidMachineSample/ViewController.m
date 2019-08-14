@@ -54,7 +54,7 @@
 
 - (IBAction)openTestSuite:(UIButton *)sender {
     /// You can use test application id - @"ca-app-pub-1405929557079197~9998880699" - to test ad.
-//    NSString *appID = @"ca-app-pub-1405929557079197~9998880699";
+    //    NSString *appID = @"ca-app-pub-1405929557079197~9998880699";
     NSString *appID = @"YOUR_APPLICATION_ID";
     [GoogleMobileAdsMediationTestSuite presentWithAppID:appID
                                        onViewController:self
@@ -88,8 +88,8 @@
     [extras setExtras:self.extras.allExtras forLabel:@"BM RV"];
     [request registerAdNetworkExtras:extras];
     /// You can use test ad unit id - @"ca-app-pub-1405929557079197/1031272924" - to test rewarded ad.
-    [self.rewarded loadRequest:request withAdUnitID:@"ca-app-pub-1405929557079197/1031272924"];
-//    [self.rewarded loadRequest:request withAdUnitID:@"YOUR_AD_UNIT_ID"];
+//    [self.rewarded loadRequest:request withAdUnitID:@"ca-app-pub-1405929557079197/1031272924"];
+    [self.rewarded loadRequest:request withAdUnitID:@"YOUR_AD_UNIT_ID"];
 }
 
 - (IBAction)showRewarded:(id)sender {
@@ -100,10 +100,17 @@
 - (void)addBannerViewToView:(UIView *)bannerView {
     bannerView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:bannerView];
-    [NSLayoutConstraint activateConstraints:@[
-                                              [self.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-                                              [self.view.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]
-                                              ]];
+    if (@available(iOS 11, *)) {
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [bannerView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+                                                  [bannerView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]
+                                                  ]];
+    } else {
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [bannerView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                                                  [bannerView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor]
+                                                  ]];
+    }
 }
 
 #pragma mark - Extras
@@ -111,45 +118,45 @@
 - (GADBidMachineNetworkExtras *)extras {
     GADBidMachineNetworkExtras *extras = [GADBidMachineNetworkExtras new];
     /// Pass additional params here
-//    extras.baseURL = [NSURL URLWithString:@"https://some.url.com"];
-//    extras.testMode = false;
-//    extras.sellerId = @"999";
-//    extras.loggingEnabled = true;
-//
+    //    extras.baseURL = [NSURL URLWithString:@"https://some.url.com"];
+    //    extras.testMode = false;
+    //    extras.sellerId = @"999";
+    //    extras.loggingEnabled = true;
+    //
     /// Sample of Header Bidding configs
     /// For supported ad networks
-//    GADBidMachineHeaderBiddingConfig *vungle = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
-//        builder.appendName(@"vungle");
-//        builder.appendNetworkClass(NSClassFromString(@"BDMVungleAdNetwork"));
-//        builder.appendAdUnit(BDMAdUnitFormatInterstitialUnknown, @{ @"placement_id" : @"95298PL39048" });
-//        builder.appendInitializationParams(@{ @"app_id": @"5a35a75845eaab51250070a5"} );
-//    }];
-//    GADBidMachineHeaderBiddingConfig *myTarget = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
-//        builder.appendName(@"my_target");
-//        builder.appendNetworkClass(NSClassFromString(@"BDMMyTargetAdNetwork"));
-//        builder.appendAdUnit(BDMAdUnitFormatBanner320x50, @{ @"slot_id" : @"298979" });
-//    }];
-//    GADBidMachineHeaderBiddingConfig *facebook = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
-//        builder.appendName(@"facebook");
-//        builder.appendNetworkClass(NSClassFromString(@"BDMFacebookAdNetwork"));
-//        builder.appendAdUnit(BDMAdUnitFormatInLineBanner, @{ @"facebook_key" : @"1419966511382477_2249153695130417" });
-//        builder.appendAdUnit(BDMAdUnitFormatInterstitialStatic, @{ @"facebook_key" : @"754722298026822_1251166031715777" });
-//        builder.appendInitializationParams(@{ @"app_id": @"754722298026822", @"placement_ids": @[@"754722298026822_1251166031715777", @"1419966511382477_2249153695130417"]} );
-//    }];
-//    GADBidMachineHeaderBiddingConfig *tapjoy = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
-//        builder.appendName(@"tapjoy");
-//        builder.appendNetworkClass(NSClassFromString(@"BDMTapjoyAdNetwork"));
-//        builder.appendAdUnit(BDMAdUnitFormatInterstitialVideo, @{ @"placement_name" : @"video_without_cap_pb" });
-//        builder.appendInitializationParams(@{ @"sdk_key": @"6gwG-HstT_aLMpZXUXlhNgEBja6Q5bq7i4GtdFMJoarOufnp36PaVlG2OBmw"} );
-//    }];
-//    GADBidMachineHeaderBiddingConfig *adcolony = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
-//        builder.appendName(@"adcolony");
-//        builder.appendNetworkClass(NSClassFromString(@"BDMAdColonyAdNetwork"));
-//        builder.appendAdUnit(BDMAdUnitFormatInterstitialVideo, @{ @"zone_id" : @"vz7fdef471647c416682" });
-//        builder.appendAdUnit(BDMAdUnitFormatRewardedVideo, @{ @"zone_id" : @"vzf07cd496be04483cad" });
-//        builder.appendInitializationParams(@{ @"app_id": @"app327320f8ced14e61b2", @"zones": @[@"vzf07cd496be04483cad", @"vz7fdef471647c416682"]} );
-//    }];
-//    extras.headerBiddingConfigs = @[vungle, myTarget, facebook, tapjoy, adcolony];
+    //    GADBidMachineHeaderBiddingConfig *vungle = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
+    //        builder.appendName(@"vungle");
+    //        builder.appendNetworkClass(NSClassFromString(@"BDMVungleAdNetwork"));
+    //        builder.appendAdUnit(BDMAdUnitFormatInterstitialUnknown, @{ @"placement_id" : @"95298PL39048" });
+    //        builder.appendInitializationParams(@{ @"app_id": @"5a35a75845eaab51250070a5"} );
+    //    }];
+    //    GADBidMachineHeaderBiddingConfig *myTarget = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
+    //        builder.appendName(@"my_target");
+    //        builder.appendNetworkClass(NSClassFromString(@"BDMMyTargetAdNetwork"));
+    //        builder.appendAdUnit(BDMAdUnitFormatBanner320x50, @{ @"slot_id" : @"298979" });
+    //    }];
+    //    GADBidMachineHeaderBiddingConfig *facebook = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
+    //        builder.appendName(@"facebook");
+    //        builder.appendNetworkClass(NSClassFromString(@"BDMFacebookAdNetwork"));
+    //        builder.appendAdUnit(BDMAdUnitFormatInLineBanner, @{ @"facebook_key" : @"1419966511382477_2249153695130417" });
+    //        builder.appendAdUnit(BDMAdUnitFormatInterstitialStatic, @{ @"facebook_key" : @"754722298026822_1251166031715777" });
+    //        builder.appendInitializationParams(@{ @"app_id": @"754722298026822", @"placement_ids": @[@"754722298026822_1251166031715777", @"1419966511382477_2249153695130417"]} );
+    //    }];
+    //    GADBidMachineHeaderBiddingConfig *tapjoy = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
+    //        builder.appendName(@"tapjoy");
+    //        builder.appendNetworkClass(NSClassFromString(@"BDMTapjoyAdNetwork"));
+    //        builder.appendAdUnit(BDMAdUnitFormatInterstitialVideo, @{ @"placement_name" : @"video_without_cap_pb" });
+    //        builder.appendInitializationParams(@{ @"sdk_key": @"6gwG-HstT_aLMpZXUXlhNgEBja6Q5bq7i4GtdFMJoarOufnp36PaVlG2OBmw"} );
+    //    }];
+    //    GADBidMachineHeaderBiddingConfig *adcolony = [GADBidMachineHeaderBiddingConfig buildWithBuilder:^(BDMAdNetworkConfigurationBuilder *builder) {
+    //        builder.appendName(@"adcolony");
+    //        builder.appendNetworkClass(NSClassFromString(@"BDMAdColonyAdNetwork"));
+    //        builder.appendAdUnit(BDMAdUnitFormatInterstitialVideo, @{ @"zone_id" : @"vz7fdef471647c416682" });
+    //        builder.appendAdUnit(BDMAdUnitFormatRewardedVideo, @{ @"zone_id" : @"vzf07cd496be04483cad" });
+    //        builder.appendInitializationParams(@{ @"app_id": @"app327320f8ced14e61b2", @"zones": @[@"vzf07cd496be04483cad", @"vz7fdef471647c416682"]} );
+    //    }];
+    //    extras.headerBiddingConfigs = @[vungle, myTarget, facebook, tapjoy, adcolony];
     return extras;
 }
 
