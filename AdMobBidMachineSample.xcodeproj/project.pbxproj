@@ -332,25 +332,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdMobBidMachineSample/Pods-AdMobBidMachineSample-resources.sh",
-				"${PODS_ROOT}/GoogleMobileAdsMediationTestSuite/Resources/GoogleMobileAdsMediationTestSuite.bundle",
-				"${PODS_ROOT}/MaterialComponents/components/Dialogs/src/MaterialDialogs.bundle",
-				"${PODS_ROOT}/MaterialComponents/components/Tabs/src/MaterialTabs.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/MaterialComponents/MaterialIcons_ic_check_circle.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.3.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.3.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-AdMobBidMachineSample/Pods-AdMobBidMachineSample-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMobileAdsMediationTestSuite.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialDialogs.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialTabs.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons_ic_check_circle.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TapjoyResources.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-AdMobBidMachineSample/Pods-AdMobBidMachineSample-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
