@@ -55,10 +55,8 @@
 - (IBAction)openTestSuite:(UIButton *)sender {
     /// You can use test application id - @"ca-app-pub-1405929557079197~9998880699" - to test ad.
     //    NSString *appID = @"ca-app-pub-1405929557079197~9998880699";
-    NSString *appID = @"YOUR_APPLICATION_ID";
-    [GoogleMobileAdsMediationTestSuite presentWithAppID:appID
-                                       onViewController:self
-                                               delegate:nil];
+    [GoogleMobileAdsMediationTestSuite presentOnViewController:self
+                                                      delegate:nil];
 }
 
 - (IBAction)loadBanner:(id)sender {
@@ -163,7 +161,7 @@
 #pragma mark - GADBannerViewDelegate
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
-    NSLog(@"adViewDidReceiveAdWithNetworkClassName: %@", bannerView.adNetworkClassName);
+    NSLog(@"adViewDidReceiveAdWithNetworkClassName: %@", bannerView.responseInfo.adNetworkClassName);
 }
 
 - (void)adView:(GADBannerView *)adView
@@ -190,7 +188,7 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
 #pragma mark - GADInterstitialDelegate
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad {
-    NSLog(@"interstitialDidReceiveAdWithNetworkClassName: %@", ad.adNetworkClassName);
+    NSLog(@"interstitialDidReceiveAdWithNetworkClassName: %@", ad.responseInfo.adNetworkClassName);
     [self.showInterstitialButton setEnabled:YES];
 }
 

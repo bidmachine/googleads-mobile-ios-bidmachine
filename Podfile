@@ -8,26 +8,21 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 
 def bidmachine_header_bidding
-  pod "BidMachine", "1.3.1"
-  pod "BidMachine/VungleAdapter"
-  pod "BidMachine/TapjoyAdapter"
-  pod "BidMachine/MyTargetAdapter"
-  pod "BidMachine/FacebookAdapter"
-  pod "BidMachine/AdColonyAdapter"
-  pod "BidMachine/MintegralAdapter"
+  pod "BidMachine", "1.3.3"
+  pod "BidMachine/Adapters"
 end
 
 
 target 'AdMobBidMachineSample' do
   project 'AdMobBidMachineSample.xcodeproj'
   pod 'GoogleMobileAdsMediationTestSuite'
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK', '7.51.0'
   bidmachine_header_bidding
 end
 
  
 target 'BidMachineAdapter' do
   project 'AdMobBidMachineSample.xcodeproj'
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK', '7.51.0'
   bidmachine_header_bidding
 end
