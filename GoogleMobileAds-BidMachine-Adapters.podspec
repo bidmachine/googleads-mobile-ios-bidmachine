@@ -26,7 +26,7 @@ limitations under the License.
 
   spec.source_files = 'BidMachineAdapter/**/*.{h,m}'
   spec.static_framework = true
+
   spec.dependency 'BidMachine', '1.3.3'
   spec.dependency 'Google-Mobile-Ads-SDK', '7.51.0'
-
 end
