@@ -38,6 +38,12 @@
     return rewardedRequest;
 }
 
+- (BDMNativeAdRequest *)nativeAdRequestWithRequestInfo:(NSDictionary *)requestInfo {
+    BDMNativeAdRequest *nativeAdRequest = [BDMNativeAdRequest new];
+    [self configureRequest:nativeAdRequest info:requestInfo];
+    return nativeAdRequest;
+}
+
 - (BDMUserRestrictions *)userRestrictionsWithRequestInfo:(NSDictionary *)requestInfo {
     BDMUserRestrictions *restrictions = [BDMUserRestrictions new];
     [restrictions setHasConsent:[requestInfo[kBidMachineHasConsent] boolValue]];

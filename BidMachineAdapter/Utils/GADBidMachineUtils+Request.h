@@ -16,6 +16,7 @@
                                requestInfo:(NSDictionary *)requestInfo;
 - (BDMInterstitialRequest *)interstitialRequestWithRequestInfo:(NSDictionary *)requestInfo;
 - (BDMRewardedRequest *)rewardedRequestWithRequestInfo:(NSDictionary *)requestInfo;
+- (BDMNativeAdRequest *)nativeAdRequestWithRequestInfo:(NSDictionary *)requestInfo;
 - (BDMUserRestrictions *)userRestrictionsWithRequestInfo:(NSDictionary *)requestInfo;
 
 @end

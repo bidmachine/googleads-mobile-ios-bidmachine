@@ -326,6 +326,76 @@ Servers extra data:
   "test_mode": "true"
 }
 ```
+### Native Ad implementation
+
+Native Ad adapter is not custom event and extras should be passed as GADBidMachineNetworkExtras instance that conforms GADAdNetworkExtras.
+Sample of extras passing attached bellow:
+
+```objc
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.nativeLoader = [[GADAdLoader alloc] initWithAdUnitID:@UNIT_ID
+                                           rootViewController:self
+                                                      adTypes:@[kGADAdLoaderAdTypeUnifiedNative]
+                                                      options:@[self.viewOptions, self.videoOptions, self.mediaOptions]];
+    self.nativeLoader.delegate = self;
+}
+
+- (IBAction)loadNativeAd:(id)sender {
+    GADRequest *request = [GADRequest request];
+    GADBidMachineNetworkExtras *extra = [GADBidMachineNetworkExtras new];
+    [extra setSellerId:@"1"];
+    [extra setCoppa:NO];
+    [extra setLoggingEnabled:YES];
+    [extra setTestMode:YES];
+    [extra setHasUserConsent:YES];
+    [extra setConsentString:@"some_consent_string"];
+    [extra setIsUnderGDPR:NO];
+    [extra setUserLatitude:12.34];
+    [extra setUserLongitude:56.78];
+    [extra setUserId:@"some_user_id"];
+    [extra setGender:@"F"];
+    [extra setYearOfBirth:@1996];
+    [extra setKeywords:@"Keyword_1,Keyword_2,Keyword_3,Keyword_4"];
+    [extra setCountry:@"USA"];
+    [extra setCity:@"Los Angeles"];
+    [extra setZip:@"90001–90084"];
+    [extra setStoreURL:[NSURL URLWithString:@"https://store_url.com"]];
+    [extra setStoreId:@"123123"];
+    [extra setPaid:NO];
+    [extra setBaseURL:[NSURL URLWithString:@"https://some.url.com"]];
+    [extra setPriceFloors:@[
+                            @{ @"id_1": @300.06 },
+                            @{ @"id_2": @1000 },
+                            @302.006,
+                            @1002
+                            ]];
+    [extra setBlockedCategories:@[@"IAB-1", @"IAB-3", @"IAB-5"]];
+    [extra setBlockedAdvertisers:@[@"https://domain_1.com", @"https://domain_2.org"]];
+    [extra setBlockedApps:@[@"com.test.application_1", @"com.test.application_2", @"com.test.application_3"]];
+    [request registerAdNetworkExtras:extra];
+    [self.nativeAdLoader loadRequest:request"];
+}
+
+- (IBAction)showNativeAd:(id)sender {
+    [self.nativeAd unregisterAdView];
+    NativeAdView *nativeAdView = [[NSBundle mainBundle] loadNibNamed:@"NativeAdView" owner:nil options:nil].firstObject;
+    nativeAdView.nativeAd = self.nativeAd;
+    [self.view addSubview:nativeAdView];
+}
+
+```
+
+Servers extra data:
+
+```json
+{
+  "seller_id": "1",
+  "coppa": "true",
+  "logging_enabled": "true",
+  "test_mode": "true"
+}
+```
 
 ### Header Bidding
 
@@ -483,6 +553,11 @@ You can pass constants that are listed below:
 * rewarded
 
 ##  Changelog
+
+### Version 1.3.0.0
+
+* Update BidMachine to 1.4.0
+* Add Native Ad support
 
 ### Version 1.3.0.0
 
