@@ -8,6 +8,9 @@
       location = "group:AdMobManagerBidMachineSample/AdMobManagerBidMachineSample.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:AdMobBidMachineHBSample/AdMobBidMachineHBSample.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:AdMobBidMachineSample/AdMobBidMachineSample.xcodeproj">
    </FileRef>
    <FileRef
