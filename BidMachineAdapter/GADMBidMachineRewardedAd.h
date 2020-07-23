@@ -9,7 +9,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 
-@interface GADMBidMachineRewardedAd : NSObject <GADMRewardBasedVideoAdNetworkAdapter>
+@interface GADMBidMachineRewardedAd : NSObject <GADMediationAdapter>
 
 @end
 

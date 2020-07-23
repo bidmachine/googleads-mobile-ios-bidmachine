@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BMAFactory (RequestInfo)
 
 - (NSDictionary *)requestInfoFrom:(NSString *)string request:(GADCustomEventRequest *)request;
-- (NSDictionary *)requestInfoFromConnector:(id<GADMRewardBasedVideoAdNetworkConnector>)connector;
+- (NSDictionary *)requestInfoFromConfiguration:(GADMediationRewardedAdConfiguration *)configuration;
 
 @end
 

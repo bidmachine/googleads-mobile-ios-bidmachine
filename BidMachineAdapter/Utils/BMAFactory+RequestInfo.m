@@ -13,24 +13,16 @@
 
 @implementation BMAFactory (RequestInfo)
 
-- (NSDictionary *)requestInfoFromConnector:(id<GADMAdNetworkConnector>)connector {
+- (NSDictionary *)requestInfoFromConfiguration:(GADMediationRewardedAdConfiguration *)configuration {
     NSMutableDictionary *requestInfo = [NSMutableDictionary new];
-    NSString *parameters = [connector.credentials valueForKey:@"parameter"];
-    // Test mode
-    if (connector.testMode) {
-        requestInfo[kBidMachineTestMode] = @YES;
-    }
-    // COPPA
-    if (connector.childDirectedTreatment) {
-        requestInfo[kBidMachineCoppa] = @YES;
-    }
+    NSString *parameters = configuration.credentials.settings[@"parameter"];
     // Network extrass
-    if ([connector.networkExtras isKindOfClass:BMANetworkExtras.class]) {
-        NSDictionary *networkExtras = [(BMANetworkExtras *)connector.networkExtras allExtras];
+    if ([configuration.extras isKindOfClass:BMANetworkExtras.class]) {
+        NSDictionary *networkExtras = [(BMANetworkExtras *)configuration.extras allExtras];
         [requestInfo addEntriesFromDictionary:networkExtras];
     }
     // Credentials
-    if (connector.credentials && parameters) {
+    if (parameters) {
         NSDictionary *params = [self deserializedString:parameters];
         if (params) {
             [requestInfo addEntriesFromDictionary:params];
@@ -62,6 +54,10 @@
 }
 
 - (NSDictionary *)deserializedString:(NSString *)string {
+    if (!string) {
+        return nil;
+    }
+    string = @"{\"bm_pf\": \"0.2\"}";
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error = nil;
     NSDictionary *requestInfo = [NSJSONSerialization JSONObjectWithData:data

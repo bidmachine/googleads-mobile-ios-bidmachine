@@ -19,55 +19,44 @@
 #import <StackFoundation/StackFoundation.h>
 
 
-@interface GADMBidMachineRewardedAd () <BDMRewardedDelegate>
+@interface GADMBidMachineRewardedAd () <BDMRewardedDelegate, GADMediationRewardedAd>
 
-@property (nonatomic, weak) id<GADMRewardBasedVideoAdNetworkConnector> rewardedAdConnector;
 @property (nonatomic, strong) BDMRewarded *rewardedAd;
+@property (nonatomic, copy) GADMediationRewardedLoadCompletionHandler originalComletion;
+@property (nonatomic, weak) id<GADMediationRewardedAdEventDelegate> delegate;
 
 @end
 
 
 @implementation GADMBidMachineRewardedAd
 
-+ (NSString *)adapterVersion {
-    return @"1.5.0.0";
++ (GADVersionNumber)adSDKVersion {
+    return [BMATransformer versionFromBidMachineString:@"1.5.0.1"];
+}
+
++ (GADVersionNumber)version {
+    return [BMATransformer versionFromBidMachineString:@"1.5.0.1"];
 }
 
 + (Class<GADAdNetworkExtras>)networkExtrasClass {
     return BMANetworkExtras.class;
 }
 
-- (instancetype)initWithRewardBasedVideoAdNetworkConnector:(id<GADMRewardBasedVideoAdNetworkConnector>)connector {
-    if (!connector) {
-        return nil;
-    }
-    
-    self = [super init];
-    if (self) {
-        _rewardedAdConnector = connector;
-    }
-    
-    return self;
+- (GADMediationRewardedLoadCompletionHandler)loadingCompletion {
+    __weak typeof (self) weakSelf = self;
+    return ^id<GADMediationRewardedAdEventDelegate>(id<GADMediationRewardedAd> ad, NSError *error) {
+        id<GADMediationRewardedAdEventDelegate> delegate = STK_RUN_BLOCK(weakSelf.originalComletion, ad, error);
+        weakSelf.originalComletion = nil;
+        return delegate;
+    };;
 }
 
-- (void)setUp {
-    id<GADMRewardBasedVideoAdNetworkConnector> strongConnector = self.rewardedAdConnector;
-    NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFromConnector:strongConnector];
+- (void)loadRewardedAdForAdConfiguration:(GADMediationRewardedAdConfiguration *)adConfiguration
+                       completionHandler:
+                           (GADMediationRewardedLoadCompletionHandler)completionHandler {
+    self.originalComletion = completionHandler;
     
-    __weak typeof(self) weakSelf = self;
-    [BMAUtils.shared initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
-        if (!error) {
-            [weakSelf.rewardedAdConnector adapterDidSetUpRewardBasedVideoAd:weakSelf];
-        } else {
-            [weakSelf.rewardedAdConnector adapter:weakSelf didFailToSetUpRewardBasedVideoAdWithError:error];
-        }
-    }];
-    
-    
-}
-
-- (void)requestRewardBasedVideoAd {
-    NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFromConnector:self.rewardedAdConnector];
+    NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFromConfiguration:adConfiguration];
     NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
     
     if (price) {
@@ -76,7 +65,7 @@
            [self.rewardedAd populateWithRequest:(BDMRewardedRequest *)auctionRequest];
         } else {
             BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];
-            [self.rewardedAdConnector adapter:self didFailToLoadRewardBasedVideoAdwithError:error];
+            self.delegate = self.loadingCompletion(nil, error);
         }
     } else {
         __weak typeof(self) weakSelf = self;
@@ -87,17 +76,17 @@
     }
 }
 
-- (void)presentRewardBasedVideoAdWithRootViewController:(UIViewController *)viewController {
++ (NSString *)adapterVersion {
+    return @"1.5.0.0";
+}
+
+- (void)presentFromViewController:(UIViewController *)viewController {
     if (self.rewardedAd.canShow) {
         [self.rewardedAd presentFromRootViewController:viewController];
     } {
         BMAError *error = [BMAError errorWithDescription:@"BidMachine rewarded ad can't show ad"];
-        [self.rewardedAdConnector adapter:self didFailToLoadRewardBasedVideoAdwithError:error];
+        [self.delegate didFailToPresentWithError:error];
     }
-}
-
-- (void)stopBeingDelegate {
-    [self.rewardedAd setDelegate:nil];
 }
 
 #pragma mark - Lazy
@@ -113,33 +102,35 @@
 #pragma mark - BDMRewardedDelegatge
 
 - (void)rewardedReadyToPresent:(BDMRewarded *)rewarded {
-    [self.rewardedAdConnector adapterDidReceiveRewardBasedVideoAd:self];
+    self.delegate = self.loadingCompletion(self, nil);
 }
 
 - (void)rewarded:(BDMRewarded *)rewarded failedWithError:(NSError *)error {
-    [self.rewardedAdConnector adapter:self didFailToLoadRewardBasedVideoAdwithError:error];
+    self.loadingCompletion(nil, error);
 }
 
 - (void)rewardedRecieveUserInteraction:(BDMRewarded *)rewarded {
-    [self.rewardedAdConnector adapterDidGetAdClick:self];
+    [self.delegate reportClick];
 }
 
 - (void)rewarded:(BDMRewarded *)rewarded failedToPresentWithError:(NSError *)error {
-    // The Google Mobile Ads SDK does not have an equivalent callback.
-    NSLog(@"Rewarded failed to present!");
+    [self.delegate didFailToPresentWithError:error];
 }
 
 - (void)rewardedWillPresent:(BDMRewarded *)rewarded {
-    [self.rewardedAdConnector adapterDidOpenRewardBasedVideoAd:self];
+    [self.delegate willPresentFullScreenView];
+    [self.delegate didStartVideo];
 }
 
 - (void)rewardedDidDismiss:(BDMRewarded *)rewarded {
-    [self.rewardedAdConnector adapterDidCloseRewardBasedVideoAd:self];
+    [self.delegate willDismissFullScreenView];
+    [self.delegate didEndVideo];
+    [self.delegate didDismissFullScreenView];
 }
 
 - (void)rewardedFinishRewardAction:(BDMRewarded *)rewarded {
     GADAdReward *reward = [[GADAdReward alloc] initWithRewardType:@"" rewardAmount:NSDecimalNumber.zero];
-    [self.rewardedAdConnector adapter:self didRewardUserWithReward:reward];
+    [self.delegate didRewardUserWithReward:reward];
 }
 
 @end

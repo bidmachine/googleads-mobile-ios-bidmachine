@@ -29,7 +29,7 @@
 }
 
 - (void)showAd:(id)sender {
-    [self.rewarded presentFromRootViewController:sender delegate:self];
+    [self.rewarded presentFromRootViewController:self delegate:self];
 }
 
 - (GADRewardedAd *)rewarded {

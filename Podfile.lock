@@ -48,7 +48,7 @@ PODS:
   - FBAudienceNetwork (5.7.1):
     - FBSDKCoreKit/Basics (>= 5.6.0)
   - FBSDKCoreKit/Basics (7.1.1)
-  - Google-Mobile-Ads-SDK (7.58.0):
+  - Google-Mobile-Ads-SDK (7.62.0):
     - GoogleAppMeasurement (~> 6.0)
   - GoogleAppMeasurement (6.6.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
@@ -297,7 +297,7 @@ PODS:
 DEPENDENCIES:
   - BidMachine (= 1.5.0)
   - BidMachine/Adapters
-  - Google-Mobile-Ads-SDK (~> 7.58.0)
+  - Google-Mobile-Ads-SDK (~> 7.62.0)
   - GoogleMobileAdsMediationTestSuite
 
 SPEC REPOS:
@@ -333,7 +333,7 @@ SPEC CHECKSUMS:
   CriteoPublisherSdk: 9ea61c4f6facafd5bc003258d569e6510e06614c
   FBAudienceNetwork: 33fc8c8c07c1cdbf5279784b73729c6410809daa
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
-  Google-Mobile-Ads-SDK: 7052557293c75c676db55feb707ace9b790f32c1
+  Google-Mobile-Ads-SDK: c92c27666fbf684c964259785a6b3cdd3068e06f
   GoogleAppMeasurement: 8cd1f289d60e629cf16ab03363b9e89c776b9651
   GoogleMobileAdsMediationTestSuite: 09b56ec48867bc9de0b0b131bf0e7f4a34fb9b5b
   GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
@@ -351,6 +351,6 @@ SPEC CHECKSUMS:
   TapjoySDK: c8d73f291cfe922cb8bb2c3ae09b5af0b2863841
   VungleSDK-iOS: b39f80d93c342cb07f9d83ab1105817ddcb61b72
 
-PODFILE CHECKSUM: b7fe9d22ff8fbdb7ec697cd9dbc803b68a8d886a
+PODFILE CHECKSUM: e2a5ccc1f224b7aa3ac313f506433a9a5ffa751d
 
 COCOAPODS: 1.9.1
