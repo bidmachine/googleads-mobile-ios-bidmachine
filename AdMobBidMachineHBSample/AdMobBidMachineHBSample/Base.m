@@ -7,6 +7,7 @@
 //
 
 #import "Base.h"
+#import <GoogleMobileAdsMediationTestSuite/GoogleMobileAdsMediationTestSuite.h>
 
 //ca-app-pub-1405929557079197~7823969450
 //ca-app-pub-7058320987613523~2982310503
@@ -28,12 +29,11 @@
                                                   [view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
                                                   [view.heightAnchor constraintEqualToConstant:100]]];
     }
+    
+    /// You can use test application id - @"ca-app-pub-1405929557079197~9998880699" - to test ad.
+//    [GoogleMobileAdsMediationTestSuite presentOnViewController:self
+//                                                    delegate:nil];
 }
-
-/// You can use test application id - @"ca-app-pub-1405929557079197~9998880699" - to test ad.
-//  NSString *appID = @"ca-app-pub-1405929557079197~9998880699";
-//  [GoogleMobileAdsMediationTestSuite presentOnViewController:self
-//                                                  delegate:nil];
 
 - (void)loadAd:(id)sender {
     // no-op

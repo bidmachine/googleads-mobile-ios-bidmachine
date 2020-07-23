@@ -11,7 +11,7 @@
 #import "BMANetworkExtras.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-#define UNIT_ID         "ca-app-pub-1405929557079197/7727940578"
+#define UNIT_ID         "ca-app-pub-3216013768320747/5715655753"
 #define EXTRAS_MARK     "BidMachine banner ios"
 
 @interface Banner ()<BDMRequestDelegate, GADBannerViewDelegate>
@@ -67,6 +67,12 @@
     // After request complete loading application can lost strong ref on it
     // BidMachineFetcher will capture request by itself
     self.request = nil;
+    // rouned price
+    if (info.price.doubleValue <= 1) {
+        [BMAUtils.shared.fetcher setFormat:@"0.2"];
+     } else {
+         [BMAUtils.shared.fetcher setFormat:@"1000.0"];
+     }
     // Get extras from fetcher
     // After whith call fetcher will has strong ref on request
     NSDictionary *extras = [BMAUtils.shared.fetcher fetchParamsFromRequest:request];

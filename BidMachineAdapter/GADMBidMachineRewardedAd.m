@@ -68,13 +68,11 @@
 
 - (void)requestRewardBasedVideoAd {
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFromConnector:self.rewardedAdConnector];
+    NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
     
-    NSString *bidId = ANY(requestInfo).from(kBidMachineBidId).string;
-    NSNumber *price = ANY(requestInfo).from(kBidMachinePrice).number;
-    
-    if (bidId && price) {
-        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForBidId: bidId];
-        if ([auctionRequest isKindOfClass:BDMRewardedRequest.self] && auctionRequest.info.price == price) {
+    if (price) {
+        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeRewarded];
+        if ([auctionRequest isKindOfClass:BDMRewardedRequest.self]) {
            [self.rewardedAd populateWithRequest:(BDMRewardedRequest *)auctionRequest];
         } else {
             BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];

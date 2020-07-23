@@ -34,12 +34,11 @@
     
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFrom:serverParameter request:request];
     BDMBannerAdSize size = [BMATransformer adSizeFromGADAdSize:adSize];
-    NSString *bidId = ANY(requestInfo).from(kBidMachineBidId).string;
-    NSNumber *price = ANY(requestInfo).from(kBidMachinePrice).number;
+    NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
     
-    if (bidId && price) {
-        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForBidId: bidId];
-        if ([auctionRequest isKindOfClass:BDMBannerRequest.self] && auctionRequest.info.price == price) {
+    if (price) {
+        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeBanner];
+        if ([auctionRequest isKindOfClass:BDMBannerRequest.self]) {
             [self populate:(BDMBannerRequest *)auctionRequest adSize:size];
         } else {
             BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];

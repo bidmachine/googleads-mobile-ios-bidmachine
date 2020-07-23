@@ -33,13 +33,12 @@
                   rootViewController:(nonnull UIViewController *)rootViewController
 {
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFrom:serverParameter request:request];
-    NSString *bidId = ANY(requestInfo).from(kBidMachineBidId).string;
-    NSNumber *price = ANY(requestInfo).from(kBidMachinePrice).number;
+    NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
     
-    if (bidId && price) {
-        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForBidId: bidId];
-        if ([auctionRequest isKindOfClass:BDMNativeAdRequest.self] && auctionRequest.info.price == price) {
-            [self.nativeAd makeRequest:(BDMNativeAdRequest *)request];
+    if (price) {
+        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeNative];
+        if ([auctionRequest isKindOfClass:BDMNativeAdRequest.self]) {
+            [self.nativeAd makeRequest:(BDMNativeAdRequest *)auctionRequest];
         } else {
             BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];
             [self.delegate customEventNativeAd:self didFailToLoadWithError:error];

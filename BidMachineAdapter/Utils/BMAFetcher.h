@@ -7,16 +7,23 @@
 //
 
 #import <BidMachine/BidMachine.h>
+#import "BMAConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BMAFetcher : NSObject
 
+@property (nonatomic, strong, readonly) NSNumberFormatter *formatter;
+
+@property (nonatomic, assign) NSNumberFormatterRoundingMode roundingMode;
+
+@property (nonatomic, copy) NSString *format;
+
 - (nullable NSDictionary <NSString *, id> *)fetchParamsFromRequest:(BDMRequest *)request;
 
 - (nullable NSDictionary <NSString *, id> *)fetchParamsFromRequest:(BDMRequest *)request withCustomParams:(nullable NSDictionary <NSString *, id> *)params;
 
-- (nullable BDMRequest *)requestForBidId:(NSString *)bidId;
+- (nullable BDMRequest *)requestForPrice:(NSString *)price type:(BMAAdType)type;
 
 @end
 

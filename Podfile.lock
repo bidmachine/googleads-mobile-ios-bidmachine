@@ -323,6 +323,7 @@ SPEC REPOS:
     - PromisesObjC
     - Protobuf
     - smaato-ios-sdk
+    - StackModules
     - TapjoySDK
     - VungleSDK-iOS
 
@@ -350,6 +351,6 @@ SPEC CHECKSUMS:
   TapjoySDK: c8d73f291cfe922cb8bb2c3ae09b5af0b2863841
   VungleSDK-iOS: b39f80d93c342cb07f9d83ab1105817ddcb61b72
 
-PODFILE CHECKSUM: 9ac8d27072463bda5ec8212270fdd828dbf70a13
+PODFILE CHECKSUM: b7fe9d22ff8fbdb7ec697cd9dbc803b68a8d886a
 
 COCOAPODS: 1.9.1

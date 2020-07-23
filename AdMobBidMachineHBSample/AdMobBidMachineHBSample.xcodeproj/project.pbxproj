@@ -37,6 +37,7 @@
 		378198E724C83FBB00E97FED /* BMANetworkExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198D524C83FBB00E97FED /* BMANetworkExtras.m */; };
 		378198E824C83FBB00E97FED /* GADMBidMachineRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198D624C83FBB00E97FED /* GADMBidMachineRewardedAd.m */; };
 		378198E924C83FBB00E97FED /* BidMachineCustomEventNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198D724C83FBB00E97FED /* BidMachineCustomEventNativeAd.m */; };
+		378198ED24C9BFB600E97FED /* BMAFetchObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198EC24C9BFB600E97FED /* BMAFetchObject.m */; };
 		553C3B84D8FB77EAACADFD52 /* libPods-AdMobBidMachineHBSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE567B3075047E51431DBF9 /* libPods-AdMobBidMachineHBSample.a */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,8 @@
 		378198D724C83FBB00E97FED /* BidMachineCustomEventNativeAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidMachineCustomEventNativeAd.m; sourceTree = "<group>"; };
 		378198D824C83FBB00E97FED /* BMANetworkConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMANetworkConfiguration.h; sourceTree = "<group>"; };
 		378198D924C83FBB00E97FED /* BidMachineCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidMachineCustomEventInterstitial.h; sourceTree = "<group>"; };
+		378198EB24C9BFB600E97FED /* BMAFetchObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAFetchObject.h; sourceTree = "<group>"; };
+		378198EC24C9BFB600E97FED /* BMAFetchObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAFetchObject.m; sourceTree = "<group>"; };
 		E0A7E9A46E9DE31B9D3B2D93 /* Pods-AdMobBidMachineHBSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdMobBidMachineHBSample.debug.xcconfig"; path = "Target Support Files/Pods-AdMobBidMachineHBSample/Pods-AdMobBidMachineHBSample.debug.xcconfig"; sourceTree = "<group>"; };
 		E9727FF623A8B43E7614138D /* Pods-AdMobBidMachineHBSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdMobBidMachineHBSample.release.xcconfig"; path = "Target Support Files/Pods-AdMobBidMachineHBSample/Pods-AdMobBidMachineHBSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,21 +202,18 @@
 		378198B724C83FBB00E97FED /* BidMachineAdapter */ = {
 			isa = PBXGroup;
 			children = (
-				378198B824C83FBB00E97FED /* BMANetworkExtras.h */,
+				378198EA24C845A200E97FED /* Models */,
+				378198BF24C83FBB00E97FED /* Utils */,
 				378198B924C83FBB00E97FED /* BidMachineCustomEventBanner.h */,
+				378198D324C83FBB00E97FED /* BidMachineCustomEventBanner.m */,
+				378198D924C83FBB00E97FED /* BidMachineCustomEventInterstitial.h */,
+				378198BD24C83FBB00E97FED /* BidMachineCustomEventInterstitial.m */,
+				378198BC24C83FBB00E97FED /* BidMachineCustomEventNativeAd.h */,
+				378198D724C83FBB00E97FED /* BidMachineCustomEventNativeAd.m */,
+				378198D424C83FBB00E97FED /* BidMachineUnifiedNativeAd.h */,
 				378198BA24C83FBB00E97FED /* BidMachineUnifiedNativeAd.m */,
 				378198BB24C83FBB00E97FED /* GADMBidMachineRewardedAd.h */,
-				378198BC24C83FBB00E97FED /* BidMachineCustomEventNativeAd.h */,
-				378198BD24C83FBB00E97FED /* BidMachineCustomEventInterstitial.m */,
-				378198BE24C83FBB00E97FED /* BMANetworkConfiguration.m */,
-				378198BF24C83FBB00E97FED /* Utils */,
-				378198D324C83FBB00E97FED /* BidMachineCustomEventBanner.m */,
-				378198D424C83FBB00E97FED /* BidMachineUnifiedNativeAd.h */,
-				378198D524C83FBB00E97FED /* BMANetworkExtras.m */,
 				378198D624C83FBB00E97FED /* GADMBidMachineRewardedAd.m */,
-				378198D724C83FBB00E97FED /* BidMachineCustomEventNativeAd.m */,
-				378198D824C83FBB00E97FED /* BMANetworkConfiguration.h */,
-				378198D924C83FBB00E97FED /* BidMachineCustomEventInterstitial.h */,
 			);
 			name = BidMachineAdapter;
 			path = ../BidMachineAdapter;
@@ -222,27 +222,40 @@
 		378198BF24C83FBB00E97FED /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				378198C024C83FBB00E97FED /* BMAFactory+BMTargeting.m */,
-				378198C124C83FBB00E97FED /* BMAFetcher.m */,
-				378198C224C83FBB00E97FED /* BMAFactory+RequestInfo.h */,
-				378198C324C83FBB00E97FED /* BMAFactory+BMRequest.h */,
-				378198C424C83FBB00E97FED /* BMATransformer.m */,
-				378198C524C83FBB00E97FED /* BMAFactory.h */,
-				378198C624C83FBB00E97FED /* BMAError.m */,
-				378198C724C83FBB00E97FED /* BMAUtils.m */,
-				378198C824C83FBB00E97FED /* BMAFactory+BMAdNetworkConfiguration.m */,
-				378198C924C83FBB00E97FED /* BMAFetcher.h */,
-				378198CA24C83FBB00E97FED /* BMAFactory+BMTargeting.h */,
-				378198CB24C83FBB00E97FED /* BMAFactory+BMRequest.m */,
 				378198CC24C83FBB00E97FED /* BMAConstants.h */,
-				378198CD24C83FBB00E97FED /* BMAFactory+RequestInfo.m */,
-				378198CE24C83FBB00E97FED /* BMAFactory.m */,
-				378198CF24C83FBB00E97FED /* BMATransformer.h */,
-				378198D024C83FBB00E97FED /* BMAFactory+BMAdNetworkConfiguration.h */,
 				378198D124C83FBB00E97FED /* BMAUtils.h */,
+				378198C724C83FBB00E97FED /* BMAUtils.m */,
+				378198C924C83FBB00E97FED /* BMAFetcher.h */,
+				378198C124C83FBB00E97FED /* BMAFetcher.m */,
+				378198EB24C9BFB600E97FED /* BMAFetchObject.h */,
+				378198EC24C9BFB600E97FED /* BMAFetchObject.m */,
+				378198C524C83FBB00E97FED /* BMAFactory.h */,
+				378198CE24C83FBB00E97FED /* BMAFactory.m */,
+				378198C324C83FBB00E97FED /* BMAFactory+BMRequest.h */,
+				378198CB24C83FBB00E97FED /* BMAFactory+BMRequest.m */,
+				378198CA24C83FBB00E97FED /* BMAFactory+BMTargeting.h */,
+				378198C024C83FBB00E97FED /* BMAFactory+BMTargeting.m */,
+				378198D024C83FBB00E97FED /* BMAFactory+BMAdNetworkConfiguration.h */,
+				378198C824C83FBB00E97FED /* BMAFactory+BMAdNetworkConfiguration.m */,
+				378198C224C83FBB00E97FED /* BMAFactory+RequestInfo.h */,
+				378198CD24C83FBB00E97FED /* BMAFactory+RequestInfo.m */,
+				378198CF24C83FBB00E97FED /* BMATransformer.h */,
+				378198C424C83FBB00E97FED /* BMATransformer.m */,
 				378198D224C83FBB00E97FED /* BMAError.h */,
+				378198C624C83FBB00E97FED /* BMAError.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		378198EA24C845A200E97FED /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				378198B824C83FBB00E97FED /* BMANetworkExtras.h */,
+				378198D524C83FBB00E97FED /* BMANetworkExtras.m */,
+				378198BE24C83FBB00E97FED /* BMANetworkConfiguration.m */,
+				378198D824C83FBB00E97FED /* BMANetworkConfiguration.h */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		60F2EBEBF0CF10876E401A59 /* Pods */ = {
@@ -403,6 +416,7 @@
 				378198DF24C83FBB00E97FED /* BMATransformer.m in Sources */,
 				378198E324C83FBB00E97FED /* BMAFactory+BMRequest.m in Sources */,
 				378198A824C83E3D00E97FED /* Base.m in Sources */,
+				378198ED24C9BFB600E97FED /* BMAFetchObject.m in Sources */,
 				378198E824C83FBB00E97FED /* GADMBidMachineRewardedAd.m in Sources */,
 				3781989F24C83DA800E97FED /* NativeAdView.m in Sources */,
 				378198E524C83FBB00E97FED /* BMAFactory.m in Sources */,

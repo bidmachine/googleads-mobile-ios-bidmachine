@@ -12,8 +12,8 @@
 #import "NativeAdRenderer.h"
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
-#define UNIT_ID         "ca-app-pub-7058320987613523/2130992051"
-#define EXTRAS_MARK     "BM Native"
+#define UNIT_ID         "ca-app-pub-3216013768320747/7699763218"
+#define EXTRAS_MARK     "Native test"
 
 @interface Native ()<BDMRequestDelegate, GADUnifiedNativeAdLoaderDelegate, GADUnifiedNativeAdDelegate>
 
@@ -81,6 +81,12 @@
     // After request complete loading application can lost strong ref on it
     // BidMachineFetcher will capture request by itself
     self.request = nil;
+    // rouned price
+    if (info.price.doubleValue <= 1) {
+        [BMAUtils.shared.fetcher setFormat:@"0.2"];
+     } else {
+         [BMAUtils.shared.fetcher setFormat:@"1000.0"];
+     }
     // Get extras from fetcher
     // After whith call fetcher will has strong ref on request
     NSDictionary *extras = [BMAUtils.shared.fetcher fetchParamsFromRequest:request];

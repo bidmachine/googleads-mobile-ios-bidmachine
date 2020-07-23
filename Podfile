@@ -16,13 +16,14 @@ end
 
 target 'AdMobBidMachineSample' do
   project 'AdMobBidMachineSample/AdMobBidMachineSample.xcodeproj'
-  pod 'GoogleMobileAdsMediationTestSuite'
+   pod 'GoogleMobileAdsMediationTestSuite'
   pod 'Google-Mobile-Ads-SDK', '~> 7.58.0'
   bidmachine_header_bidding
 end
 
 target 'AdMobBidMachineHBSample' do
   project 'AdMobBidMachineHBSample/AdMobBidMachineHBSample.xcodeproj'
+   pod 'GoogleMobileAdsMediationTestSuite'
   pod 'Google-Mobile-Ads-SDK', '~> 7.58.0'
   bidmachine_header_bidding
 end

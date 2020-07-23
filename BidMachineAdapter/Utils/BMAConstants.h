@@ -6,6 +6,13 @@
 //  Copyright © 2019 bidmachine. All rights reserved.
 //
 
+typedef NS_ENUM(NSInteger, BMAAdType) {
+    BMAAdTypeBanner = 0,
+    BMAAdTypeInterstitial,
+    BMAAdTypeRewarded,
+    BMAAdTypeNative
+};
+
 static NSString * const kBidMachineBidId                        = @"bm_id";
 static NSString * const kBidMachinePrice                        = @"bm_pf";
 static NSString * const kBidMachineSellerId                     = @"seller_id";

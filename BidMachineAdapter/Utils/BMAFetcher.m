@@ -7,7 +7,9 @@
 //
 
 #import "BMAFetcher.h"
-#import "BMAConstants.h"
+#import "BMAFetchObject.h"
+
+#import <StackFoundation/StackFoundation.h>
 
 @interface BDMRequest (Adapter)
 
@@ -15,33 +17,49 @@
 
 @end
 
-
 @interface BMAFetcher () <BDMRequestDelegate>
 
-@property (nonatomic, strong) NSMapTable <NSString *, BDMRequest *> *requestByBidId;
-@property (nonatomic, strong) NSMapTable <BDMRequest *, NSString *> *bidIdByRequest;
+@property (nonatomic, strong) NSMutableArray <BMAFetchObject *> *fetchObjects;
+@property (nonatomic, strong, readwrite) NSNumberFormatter *formatter;
 
 @end
 
+
+
 @implementation BMAFetcher
 
-- (instancetype)initPrivately {
-    self = [super init];
+- (instancetype)init {
+    if (self = [super init]) {
+        _fetchObjects = NSMutableArray.array;
+    }
     return self;
 }
 
-- (NSMapTable<NSString *,BDMRequest *> *)requestByBidId {
-    if (!_requestByBidId) {
-        _requestByBidId = [NSMapTable strongToWeakObjectsMapTable];
+- (NSNumberFormatter *)formatter {
+    if (!_formatter) {
+        _formatter = [NSNumberFormatter new];
+        _formatter.numberStyle = NSNumberFormatterDecimalStyle;
+        _formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        _formatter.roundingMode = NSNumberFormatterRoundCeiling;
+        _formatter.positiveFormat = @"0.00";
     }
-    return _requestByBidId;
+    return _formatter;
 }
 
-- (NSMapTable<BDMRequest *,NSString *> *)bidIdByRequest {
-    if (!_bidIdByRequest) {
-        _bidIdByRequest = [NSMapTable strongToWeakObjectsMapTable];
-    }
-    return _bidIdByRequest;
+- (void)setRoundingMode:(NSNumberFormatterRoundingMode)roundingMode {
+    self.formatter.roundingMode = roundingMode;
+}
+
+- (NSNumberFormatterRoundingMode)roundingMode {
+    return self.formatter.roundingMode;
+}
+
+- (void)setFormat:(NSString *)format {
+    self.formatter.positiveFormat = format;
+}
+
+- (NSString *)format {
+    return self.formatter.positiveFormat;
 }
 
 - (NSDictionary<NSString *,id> *)fetchParamsFromRequest:(BDMRequest *)request {
@@ -54,33 +72,35 @@
     }
     
     [request registerDelegate:self];
-    [self associateRequest:request bidId:request.info.bidID];
-    return [request.info extrasWithCustomParams:params];
+    [self associateRequest:request];
+    
+    NSMutableDictionary *fetchedParams = [request.info extrasWithCustomParams:params].mutableCopy;
+    fetchedParams[@"bm_pf"] = [self.formatter stringFromNumber:request.info.price];
+    return fetchedParams;
 }
 
-- (BDMRequest *)requestForBidId:(NSString *)bidId {
-    BDMRequest *request = [self.requestByBidId objectForKey:bidId];
-    [self removeBidId:bidId];
+- (BDMRequest *)requestForPrice:(NSString *)price type:(BMAAdType)type {
+    __block BMAFetchObject *fetchObject = nil;
+    [self.fetchObjects enumerateObjectsUsingBlock:^(BMAFetchObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (type == obj.type && [price isEqualToString:obj.price] && (!fetchObject || (fetchObject.creationDate < obj.creationDate))) {
+            fetchObject = obj;
+        }
+    }];
+    BDMRequest *request = fetchObject.request;
+    [self removeRequest:request];
     return request;
 }
 
 #pragma mark - Storage
 
-- (void)associateRequest:(BDMRequest *)request bidId:(NSString *)bidId {
-    [self.requestByBidId setObject:request forKey:bidId];
-    [self.bidIdByRequest setObject:bidId forKey:request];
+- (void)associateRequest:(BDMRequest *)request {
+    [self.fetchObjects addObject:[[BMAFetchObject alloc] initWithRequest:request]];
 }
 
 - (void)removeRequest:(BDMRequest *)request {
-    NSString *bidId = [self.bidIdByRequest objectForKey:request];
-    [self.bidIdByRequest removeObjectForKey:request];
-    [self.requestByBidId removeObjectForKey:bidId];
-}
-
-- (void)removeBidId:(NSString *)bidId {
-    BDMRequest *request = [self.requestByBidId objectForKey:bidId];
-    [self.bidIdByRequest removeObjectForKey:request];
-    [self.requestByBidId removeObjectForKey:bidId];
+    self.fetchObjects = [self.fetchObjects stk_filter:^BOOL(BMAFetchObject *obj) {
+        return ![obj.request isEqual:request];
+    }].mutableCopy;
 }
 
 #pragma mark - BDMRequestDelegate

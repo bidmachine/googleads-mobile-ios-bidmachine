@@ -32,12 +32,11 @@
                                    request:(GADCustomEventRequest *)request
 {
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFrom:serverParameter request:request];
-    NSString *bidId = ANY(requestInfo).from(kBidMachineBidId).string;
-    NSNumber *price = ANY(requestInfo).from(kBidMachinePrice).number;
+    NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
     
-    if (bidId && price) {
-        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForBidId: bidId];
-        if ([auctionRequest isKindOfClass:BDMInterstitialRequest.self] && auctionRequest.info.price == price) {
+    if (price) {
+        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeInterstitial];
+        if ([auctionRequest isKindOfClass:BDMInterstitialRequest.self]) {
             [self.interstitial populateWithRequest: (BDMInterstitialRequest *)auctionRequest];
         } else {
             BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];
