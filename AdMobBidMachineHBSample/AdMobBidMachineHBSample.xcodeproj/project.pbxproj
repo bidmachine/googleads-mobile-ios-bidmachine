@@ -38,6 +38,7 @@
 		378198E824C83FBB00E97FED /* GADMBidMachineRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198D624C83FBB00E97FED /* GADMBidMachineRewardedAd.m */; };
 		378198E924C83FBB00E97FED /* BidMachineCustomEventNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198D724C83FBB00E97FED /* BidMachineCustomEventNativeAd.m */; };
 		378198ED24C9BFB600E97FED /* BMAFetchObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198EC24C9BFB600E97FED /* BMAFetchObject.m */; };
+		378198F324CA24BD00E97FED /* BidMachineCustomEventRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 378198F224CA24BD00E97FED /* BidMachineCustomEventRewardedAd.m */; };
 		553C3B84D8FB77EAACADFD52 /* libPods-AdMobBidMachineHBSample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE567B3075047E51431DBF9 /* libPods-AdMobBidMachineHBSample.a */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,8 @@
 		378198D924C83FBB00E97FED /* BidMachineCustomEventInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BidMachineCustomEventInterstitial.h; sourceTree = "<group>"; };
 		378198EB24C9BFB600E97FED /* BMAFetchObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAFetchObject.h; sourceTree = "<group>"; };
 		378198EC24C9BFB600E97FED /* BMAFetchObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAFetchObject.m; sourceTree = "<group>"; };
+		378198F124CA24BD00E97FED /* BidMachineCustomEventRewardedAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BidMachineCustomEventRewardedAd.h; sourceTree = "<group>"; };
+		378198F224CA24BD00E97FED /* BidMachineCustomEventRewardedAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BidMachineCustomEventRewardedAd.m; sourceTree = "<group>"; };
 		E0A7E9A46E9DE31B9D3B2D93 /* Pods-AdMobBidMachineHBSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdMobBidMachineHBSample.debug.xcconfig"; path = "Target Support Files/Pods-AdMobBidMachineHBSample/Pods-AdMobBidMachineHBSample.debug.xcconfig"; sourceTree = "<group>"; };
 		E9727FF623A8B43E7614138D /* Pods-AdMobBidMachineHBSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdMobBidMachineHBSample.release.xcconfig"; path = "Target Support Files/Pods-AdMobBidMachineHBSample/Pods-AdMobBidMachineHBSample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -214,6 +217,8 @@
 				378198BA24C83FBB00E97FED /* BidMachineUnifiedNativeAd.m */,
 				378198BB24C83FBB00E97FED /* GADMBidMachineRewardedAd.h */,
 				378198D624C83FBB00E97FED /* GADMBidMachineRewardedAd.m */,
+				378198F124CA24BD00E97FED /* BidMachineCustomEventRewardedAd.h */,
+				378198F224CA24BD00E97FED /* BidMachineCustomEventRewardedAd.m */,
 			);
 			name = BidMachineAdapter;
 			path = ../BidMachineAdapter;
@@ -424,6 +429,7 @@
 				3781989E24C83DA800E97FED /* NativeAdRenderer.m in Sources */,
 				378198B124C83E5A00E97FED /* Rewarded.m in Sources */,
 				378198DA24C83FBB00E97FED /* BidMachineUnifiedNativeAd.m in Sources */,
+				378198F324CA24BD00E97FED /* BidMachineCustomEventRewardedAd.m in Sources */,
 				378198DB24C83FBB00E97FED /* BidMachineCustomEventInterstitial.m in Sources */,
 				378198DE24C83FBB00E97FED /* BMAFetcher.m in Sources */,
 				378198E424C83FBB00E97FED /* BMAFactory+RequestInfo.m in Sources */,
