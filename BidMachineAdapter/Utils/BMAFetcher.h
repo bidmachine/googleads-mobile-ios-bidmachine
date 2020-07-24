@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable BDMRequest *)requestForPrice:(NSString *)price type:(BMAAdType)type;
 
+- (BOOL)isPrebidRequestsForType:(BMAAdType)type;
+
 @end
 
 NS_ASSUME_NONNULL_END

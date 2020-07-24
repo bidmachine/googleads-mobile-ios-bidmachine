@@ -72,28 +72,28 @@
 
 - (void)loadRewardedVideo {
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFromConfiguration:_adConfiguration];
-       NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
-       
-       if (price) {
-           BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeRewarded];
-           if ([auctionRequest isKindOfClass:BDMRewardedRequest.self]) {
-              _rewardedAd = [BDMRewarded new];
-              _rewardedAd.delegate = self;
-              [_rewardedAd populateWithRequest:(BDMRewardedRequest *)auctionRequest];
-           } else {
-               BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];
-               _loadCompletionHandler(nil, error);
-           }
-       } else {
-           BidMachineCustomEventRewardedAd *__weak weakSelf = self;
-           [BMAUtils.shared initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
-               BidMachineCustomEventRewardedAd *strongSelf = weakSelf;
-               BDMRewardedRequest *auctionRequest = [[BMAFactory sharedFactory] rewardedRequestWithRequestInfo:requestInfo];
-               strongSelf->_rewardedAd = [BDMRewarded new];
-               strongSelf->_rewardedAd.delegate = self;
-               [strongSelf->_rewardedAd populateWithRequest:auctionRequest];
-           }];
-       }
+    NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
+    BOOL isPrebid = [BMAUtils.shared.fetcher isPrebidRequestsForType:BMAAdTypeRewarded];
+    if (isPrebid && price) {
+        BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeRewarded];
+        if ([auctionRequest isKindOfClass:BDMRewardedRequest.self]) {
+            _rewardedAd = [BDMRewarded new];
+            _rewardedAd.delegate = self;
+            [_rewardedAd populateWithRequest:(BDMRewardedRequest *)auctionRequest];
+        } else {
+            BMAError *error = [BMAError errorWithDescription:@"Bidmachine can't fint prebid request"];
+            _loadCompletionHandler(nil, error);
+        }
+    } else {
+        BidMachineCustomEventRewardedAd *__weak weakSelf = self;
+        [BMAUtils.shared initializeBidMachineWithRequestInfo:requestInfo completion:^(NSError *error) {
+            BidMachineCustomEventRewardedAd *strongSelf = weakSelf;
+            BDMRewardedRequest *auctionRequest = [[BMAFactory sharedFactory] rewardedRequestWithRequestInfo:requestInfo];
+            strongSelf->_rewardedAd = [BDMRewarded new];
+            strongSelf->_rewardedAd.delegate = self;
+            [strongSelf->_rewardedAd populateWithRequest:auctionRequest];
+        }];
+    }
 }
 
 - (void)presentFromViewController:(UIViewController *)viewController {

@@ -34,8 +34,8 @@
 {
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFrom:serverParameter request:request];
     NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
-    
-    if (price) {
+    BOOL isPrebid = [BMAUtils.shared.fetcher isPrebidRequestsForType:BMAAdTypeNative];
+    if (isPrebid && price) {
         BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeNative];
         if ([auctionRequest isKindOfClass:BDMNativeAdRequest.self]) {
             [self.nativeAd makeRequest:(BDMNativeAdRequest *)auctionRequest];

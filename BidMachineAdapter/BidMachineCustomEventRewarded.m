@@ -8,18 +8,18 @@
 
 #import "BMATransformer.h"
 #import "BMANetworkExtras.h"
-#import "GADMBidMachineRewardedAd.h"
+#import "BidMachineCustomEventRewarded.h"
 #import "BidMachineCustomEventRewardedAd.h"
 
 
-@interface GADMBidMachineRewardedAd () {
+@interface BidMachineCustomEventRewarded () {
   BidMachineCustomEventRewardedAd *_rewardedAd;
 }
 
 @end
 
 
-@implementation GADMBidMachineRewardedAd
+@implementation BidMachineCustomEventRewarded
 
 + (GADVersionNumber)adSDKVersion {
     return [BMATransformer versionFromBidMachineString:@"1.5.0.1"];

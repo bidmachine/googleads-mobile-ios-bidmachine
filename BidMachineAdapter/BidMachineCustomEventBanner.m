@@ -35,8 +35,8 @@
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFrom:serverParameter request:request];
     BDMBannerAdSize size = [BMATransformer adSizeFromGADAdSize:adSize];
     NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
-    
-    if (price) {
+    BOOL isPrebid = [BMAUtils.shared.fetcher isPrebidRequestsForType:BMAAdTypeBanner];
+    if (isPrebid && price) {
         BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeBanner];
         if ([auctionRequest isKindOfClass:BDMBannerRequest.self]) {
             [self populate:(BDMBannerRequest *)auctionRequest adSize:size];

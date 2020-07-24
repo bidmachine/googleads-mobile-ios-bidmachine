@@ -57,7 +57,7 @@
     if (!string) {
         return nil;
     }
-    string = @"{\"bm_pf\": \"0.2\"}";
+
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error = nil;
     NSDictionary *requestInfo = [NSJSONSerialization JSONObjectWithData:data

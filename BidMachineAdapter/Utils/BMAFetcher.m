@@ -91,6 +91,15 @@
     return request;
 }
 
+- (BOOL)isPrebidRequestsForType:(BMAAdType)type {
+    __block BOOL isPrebid = NO;
+    [self.fetchObjects enumerateObjectsUsingBlock:^(BMAFetchObject * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        isPrebid = obj.type == type;
+        *stop = isPrebid;
+    }];
+    return isPrebid;
+}
+
 #pragma mark - Storage
 
 - (void)associateRequest:(BDMRequest *)request {

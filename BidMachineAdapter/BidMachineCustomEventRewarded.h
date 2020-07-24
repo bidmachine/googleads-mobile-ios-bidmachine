@@ -1,5 +1,5 @@
 //
-//  GADMBidMachineRewardedAd.h
+//  BidMachineCustomEventRewarded.h
 //  BidMachineAdapter
 //
 //  Created by Yaroslav Skachkov on 5/15/19.
@@ -9,7 +9,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 
-@interface GADMBidMachineRewardedAd : NSObject <GADMediationAdapter>
+@interface BidMachineCustomEventRewarded : NSObject <GADMediationAdapter>
 
 @end
 

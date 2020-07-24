@@ -33,8 +33,8 @@
 {
     NSDictionary *requestInfo = [[BMAFactory sharedFactory] requestInfoFrom:serverParameter request:request];
     NSString *price = ANY(requestInfo).from(kBidMachinePrice).string;
-    
-    if (price) {
+    BOOL isPrebid = [BMAUtils.shared.fetcher isPrebidRequestsForType:BMAAdTypeInterstitial];
+    if (isPrebid && price) {
         BDMRequest *auctionRequest = [BMAUtils.shared.fetcher requestForPrice:price type:BMAAdTypeInterstitial];
         if ([auctionRequest isKindOfClass:BDMInterstitialRequest.self]) {
             [self.interstitial populateWithRequest: (BDMInterstitialRequest *)auctionRequest];
