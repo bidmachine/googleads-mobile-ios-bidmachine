@@ -28,5 +28,5 @@ limitations under the License.
   spec.static_framework = true
 
   spec.dependency 'BidMachine', '1.5.0'
-  spec.dependency 'Google-Mobile-Ads-SDK', '7.58.0'
+  spec.dependency 'Google-Mobile-Ads-SDK', '7.62.0'
 end
